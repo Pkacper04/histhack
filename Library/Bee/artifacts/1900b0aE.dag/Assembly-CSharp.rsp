@@ -406,6 +406,11 @@
 "Assets/CustomAssets/VIDE/Demos/Template/Template_UIManager.cs"
 "Assets/CustomAssets/VIDE/Demos/VeryBasic/minUIExample.cs"
 "Assets/CustomAssets/VIDE/VIDE_Assign.cs"
+"Assets/Scripts/Controllers/AddictionalMethods.cs"
+"Assets/Scripts/Controllers/MainGameController.cs"
+"Assets/Scripts/Controllers/Singleton.cs"
+"Assets/Scripts/UI/LoadingScreen/LoadingScreen.cs"
+"Assets/Scripts/UI/MainMenu/MainMenuController.cs"
 -langversion:9.0
 
 /deterministic
