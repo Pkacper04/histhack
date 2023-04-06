@@ -52,4 +52,22 @@ public class AddictionalMethods : MonoBehaviour
     }
 
     #endregion Fading
+
+    #region CanvasGroup
+
+    public void ActivateCanvasGroup(CanvasGroup canvasGroup)
+    {
+        canvasGroup.alpha = 1;
+        canvasGroup.interactable = true;
+        canvasGroup.blocksRaycasts = true;
+    }
+
+    public void DeactivateCanvasGroup(CanvasGroup canvasGroup)
+    {
+        canvasGroup.alpha = 0;
+        canvasGroup.interactable = false;
+        canvasGroup.blocksRaycasts = false;
+    }
+
+    #endregion CanvasGroup
 }
