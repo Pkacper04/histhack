@@ -5,25 +5,36 @@ using NaughtyAttributes;
 using UnityEngine.SceneManagement;
 using System;
 using Histhack.Core;
+using UnityEngine.UI;
+using Histhack.Core.SaveLoadSystem;
 
 public class MainMenuController : MonoBehaviour
 {
     [SerializeField, Scene]
     private string gameSceneToLoad;
 
-    [SerializeField]
+    [SerializeField, BoxGroup("Menu Animation")]
     private Animator menuAnimator;
 
-    [SerializeField, AnimatorParam(nameof(menuAnimator))]
+    [SerializeField, AnimatorParam(nameof(menuAnimator)), BoxGroup("Menu Animation")]
     private string animationParam;
 
-    [SerializeField]
+    [SerializeField, BoxGroup("Panels")]
     private CanvasGroup creditsCanvasGroup;
+
+    [SerializeField, BoxGroup("Buttons")]
+    private Button continueButton;
 
 
     private void Start()
     {
+        SetupMenu();
+    }
+
+    private void SetupMenu()
+    {
         DeactivateOtherPanels();
+        DeactivateButtons();
     }
 
     private void DeactivateOtherPanels()
@@ -31,15 +42,21 @@ public class MainMenuController : MonoBehaviour
         MainGameController.Instance.AddictionalMethods.DeactivateCanvasGroup(creditsCanvasGroup);
     }
 
+    private void DeactivateButtons()
+    {
+        continueButton.gameObject.SetActive(SaveSystem.CheckIfSaveExists());
+    }
+
     #region MainMenuButtons
 
-    public void ContinueGame()
+    public void Continue()
     {
-        //TODO
+        SceneManager.LoadScene(gameSceneToLoad);
     }
 
     public void StartGame()
     {
+        SaveSystem.DeleteAllSaves();
         SceneManager.LoadScene(gameSceneToLoad);
     }
 
