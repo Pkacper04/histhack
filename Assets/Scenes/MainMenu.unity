@@ -602,6 +602,7 @@ MonoBehaviour:
   menuAnimator: {fileID: 631207437}
   animationParam: slideCredits
   creditsCanvasGroup: {fileID: 1439057998}
+  continueButton: {fileID: 1600027460}
 --- !u!114 &631207433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2040,7 +2041,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 631207432}
         m_TargetAssemblyTypeName: MainMenuController, Assembly-CSharp
-        m_MethodName: ContinueGame
+        m_MethodName: Continue
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
