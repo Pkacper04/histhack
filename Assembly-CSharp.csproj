@@ -85,6 +85,9 @@
     <Compile Include="Assets\CustomAssets\VIDE\Data\VIDE_EditorDB.cs" />
     <Compile Include="Assets\CustomAssets\VIDE\Demos\PlayerInteraction\demoScripts\witchExample.cs" />
     <Compile Include="Assets\CustomAssets\VIDE\Demos\Localization\VIDEUIManager2.cs" />
+    <Compile Include="Assets\Scripts\Animations\SimpleAnimations\RotateObject.cs" />
+    <Compile Include="Assets\Scripts\Animations\SimpleAnimations\TextBumpingLetters.cs" />
+    <Compile Include="Assets\Scripts\Animations\SimpleAnimations\SimpleHalfFadingEffect.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -379,6 +382,9 @@
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>Library\PackageCache\com.unity.nuget.newtonsoft-json@3.0.2\Runtime\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween">
+      <HintPath>Assets\Plugins\Demigiant\DOTween\DOTween.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.11f1\Editor\Data\NetStandard\ref\2.1.0\netstandard.dll</HintPath>
@@ -919,6 +925,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{9D22F6F9-38D0-263A-7841-9BB07ECD41B2}</Project>
+      <Name>Assembly-CSharp-firstpass</Name>
+    </ProjectReference>
     <ProjectReference Include="NaughtyAttributes.Editor.csproj">
       <Project>{146179B3-C02C-2E35-E64A-4B86F663EE88}</Project>
       <Name>NaughtyAttributes.Editor</Name>
