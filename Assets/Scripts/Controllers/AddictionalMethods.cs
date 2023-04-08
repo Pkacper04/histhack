@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -70,4 +71,55 @@ public class AddictionalMethods : MonoBehaviour
     }
 
     #endregion CanvasGroup
+
+    #region TextManagement
+
+    public void BuildText(TMP_Text textEdit, string text, float displayTime, bool onEndIndent = false)
+    {
+        StartCoroutine(displayText(textEdit, text, displayTime, onEndIndent));
+    }
+
+    public void BuildText(Text textEdit, string text, float displayTime, bool onEndIndent = false)
+    {
+        StartCoroutine(displayText(textEdit, text, displayTime, onEndIndent));
+    }
+
+    public void BuildTextInstant(TMP_Text textEdit, string text, bool OnEndIndent = false)
+    {
+        if (OnEndIndent)
+            textEdit.text = text + "\n";
+        textEdit.text = text;
+    }
+
+    public void BuildTextInstant(Text textEdit, string text, bool OnEndIndent = false)
+    {
+        if (OnEndIndent)
+            textEdit.text = text + "\n";
+        textEdit.text = text;
+    }
+
+
+    private IEnumerator displayText(TMP_Text textEdit, string text, float displayTime, bool onEndIndent)
+    {
+        for (int i = 0; i < text.Length; i++)
+        {
+            textEdit.text = string.Concat(textEdit.text, text[i]);
+            yield return new WaitForSecondsRealtime(displayTime);
+        }
+        if (onEndIndent)
+            textEdit.text += "\n";
+    }
+
+    private IEnumerator displayText(Text textEdit, string text, float displayTime, bool onEndIndent)
+    {
+        for (int i = 0; i < text.Length; i++)
+        {
+            textEdit.text = string.Concat(textEdit.text, text[i]);
+            yield return new WaitForSecondsRealtime(displayTime);
+        }
+        if (onEndIndent)
+            textEdit.text += "\n";
+    }
+
+    #endregion TextManagement
 }
