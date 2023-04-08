@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\CustomAssets\VIDE\Data\Editor\VDE.cs" />
+    <Compile Include="Assets\SaveSystem\Editor\Savable\SavableItemSetID.cs" />
     <Compile Include="Assets\CustomAssets\VIDE\Data\Editor\VIDE_Editor.cs" />
     <Compile Include="Assets\CustomAssets\VIDE\Data\Editor\VIDE_AssignC.cs" />
   </ItemGroup>

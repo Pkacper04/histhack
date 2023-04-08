@@ -1,9 +1,11 @@
 using Histhack.Core.Events;
 using Histhack.Core.SaveLoadSystem;
+using Histhack.Core.Settings;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
 namespace Histhack.Core
@@ -16,6 +18,9 @@ namespace Histhack.Core
         [SerializeField]
         private AddictionalMethods addictionalMethods;
 
+        [SerializeField]
+        private AudioMixer mainAudioMixer;
+
         #endregion SerializedVariables
 
         #region PrivateVariables
@@ -24,6 +29,8 @@ namespace Histhack.Core
         private PlayerEvents playerEvents;
 
         private DataManager dataManager;
+
+        private SettingsController settingsController;
 
         #endregion PrivateVariables
 
@@ -36,6 +43,9 @@ namespace Histhack.Core
         public PlayerEvents PlayerEvents { get => playerEvents; }
 
         public DataManager DataManager { get => dataManager; }
+
+        public SettingsController SettingsController { get => settingsController; }
+
         #endregion PublicProperties
 
 
@@ -77,6 +87,12 @@ namespace Histhack.Core
 
             dataManager = new DataManager();
             dataManager.Init();
+
+            settingsController = new SettingsController();
+            settingsController.Init(mainAudioMixer);
+            settingsController.LoadSettings();
+
+
         }
     }
 }
