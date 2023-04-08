@@ -149,6 +149,8 @@ namespace Histhack.Core.SaveLoadSystem
                     return "PlayerData/";
                 case SaveDirectories.Collectibles:
                     return "CollectiblesData/";
+                case SaveDirectories.Core:
+                    return "CoreValues/";
                 default:
                     return "";
             }
@@ -179,6 +181,7 @@ namespace Histhack.Core.SaveLoadSystem
         None,
         Level,
         Player,
-        Collectibles
+        Collectibles,
+        Core
     }
 }

@@ -57,26 +57,34 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\CustomAssets\VIDE\Demos\Narration\DEMO_UIManager.cs" />
+    <Compile Include="Assets\Scripts\Controllers\DataManager.cs" />
     <Compile Include="Assets\CustomAssets\VIDE\Demos\Template\Template_UIManager.cs" />
     <Compile Include="Assets\CustomAssets\VIDE\VIDE_Assign.cs" />
     <Compile Include="Assets\CustomAssets\VIDE\Demos\PlayerInteraction\demoScripts\VIDEDemoPlayer.cs" />
     <Compile Include="Assets\CustomAssets\VIDE\Demos\MultiInstances\VIDEUIManager3.cs" />
+    <Compile Include="Assets\Scripts\Controllers\MainGameController.cs" />
+    <Compile Include="Assets\SaveSystem\SavableItem.cs" />
     <Compile Include="Assets\CustomAssets\VIDE\Demos\PlayerInteraction\demoScripts\VIDEUIManager1.cs" />
     <Compile Include="Assets\CustomAssets\VIDE\Demos\PlayerInteraction\demoScripts\CylinderGuy.cs" />
+    <Compile Include="Assets\Scripts\Controllers\SettingsController.cs" />
+    <Compile Include="Assets\Scripts\Controllers\GameEvents.cs" />
     <Compile Include="Assets\CustomAssets\VIDE\Data\VIDE_Localization.cs" />
     <Compile Include="Assets\Scripts\UI\LoadingScreen\LoadingScreen.cs" />
+    <Compile Include="Assets\Scripts\Controllers\SettingsData.cs" />
+    <Compile Include="Assets\Scripts\Controllers\AddictionalMethods.cs" />
     <Compile Include="Assets\CustomAssets\VIDE\Data\VIDE_Editor_Skin.cs" />
+    <Compile Include="Assets\Scripts\Controllers\Singleton.cs" />
     <Compile Include="Assets\CustomAssets\VIDE\Demos\VeryBasic\minUIExample.cs" />
+    <Compile Include="Assets\SaveSystem\Encrypter.cs" />
+    <Compile Include="Assets\Scripts\Controllers\PlayerEvents.cs" />
     <Compile Include="Assets\Scripts\UI\MainMenu\MainMenuController.cs" />
     <Compile Include="Assets\CustomAssets\VIDE\Data\VIDE_Data.cs" />
     <Compile Include="Assets\CustomAssets\VIDE\Data\MiniJSON_VIDE.cs" />
     <Compile Include="Assets\CustomAssets\VIDE\Demos\PlayerInteraction\demoScripts\QuestChartDemo.cs" />
+    <Compile Include="Assets\SaveSystem\SaveSystem.cs" />
     <Compile Include="Assets\CustomAssets\VIDE\Data\VIDE_EditorDB.cs" />
     <Compile Include="Assets\CustomAssets\VIDE\Demos\PlayerInteraction\demoScripts\witchExample.cs" />
     <Compile Include="Assets\CustomAssets\VIDE\Demos\Localization\VIDEUIManager2.cs" />
-    <Compile Include="Assets\Scripts\Controllers\AddictionalMethods.cs" />
-    <Compile Include="Assets\Scripts\Controllers\Singleton.cs" />
-    <Compile Include="Assets\Scripts\Controllers\MainGameController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
