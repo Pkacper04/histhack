@@ -18,6 +18,11 @@ public class AddictionalMethods : MonoBehaviour
         StartCoroutine(FadeElementCoroutine(duration, canvasToFade, endAlpha, myDelegate));
     }
 
+    public void FadeElement(float duration, TMP_Text textToFade, float endAlpha, Action myDelegate = null)
+    {
+        StartCoroutine(FadeElementCoroutine(duration, textToFade, endAlpha, myDelegate));
+    }
+
     private IEnumerator FadeElementCoroutine(float duration, Image imageToFade, float endAlpha , Action myDelegate)
     {
         float timePassed = 0;
@@ -45,6 +50,89 @@ public class AddictionalMethods : MonoBehaviour
             timePassed += Time.deltaTime;
             float newAlpha = Mathf.Lerp(startedAlpha, endAlpha, timePassed / duration);
             canvasToFade.alpha = newAlpha;
+            yield return null;
+        }
+
+        if (myDelegate != null)
+            myDelegate.Invoke();
+    }
+
+    private IEnumerator FadeElementCoroutine(float duration, TMP_Text textToFade, float endAlpha, Action myDelegate)
+    {
+        float timePassed = 0;
+        float startedAlpha = textToFade.alpha;
+
+        while (timePassed < duration)
+        {
+            timePassed += Time.deltaTime;
+            float newAlpha = Mathf.Lerp(startedAlpha, endAlpha, timePassed / duration);
+            textToFade.alpha = newAlpha;
+            yield return null;
+        }
+
+        if (myDelegate != null)
+            myDelegate.Invoke();
+    }
+
+    public void FadeElement(float duration, Image imageToFade, float startAlpha, float endAlpha, Action myDelegate = null)
+    {
+        StartCoroutine(FadeElementCoroutine(duration, imageToFade, startAlpha, endAlpha, myDelegate));
+    }
+
+    public void FadeElement(float duration, CanvasGroup canvasToFade, float startAlpha, float endAlpha, Action myDelegate = null)
+    {
+        StartCoroutine(FadeElementCoroutine(duration, canvasToFade, startAlpha, endAlpha, myDelegate));
+    }
+
+    public void FadeElement(float duration, TMP_Text textToFade, float startAlpha, float endAlpha, Action myDelegate = null)
+    {
+        StartCoroutine(FadeElementCoroutine(duration, textToFade, startAlpha, endAlpha, myDelegate));
+    }
+
+    private IEnumerator FadeElementCoroutine(float duration, Image imageToFade, float startAlpha , float endAlpha, Action myDelegate)
+    {
+        float timePassed = 0;
+        float startedAlpha = startAlpha;
+
+        while (timePassed < duration)
+        {
+            timePassed += Time.deltaTime;
+            float newAlpha = Mathf.Lerp(startedAlpha, endAlpha, timePassed / duration);
+            imageToFade.color = new Color(imageToFade.color.r, imageToFade.color.g, imageToFade.color.b, newAlpha);
+            yield return null;
+        }
+
+        if (myDelegate != null)
+            myDelegate.Invoke();
+    }
+
+    private IEnumerator FadeElementCoroutine(float duration, CanvasGroup canvasToFade, float startAlpha, float endAlpha, Action myDelegate)
+    {
+        float timePassed = 0;
+        float startedAlpha = startAlpha;
+
+        while (timePassed < duration)
+        {
+            timePassed += Time.deltaTime;
+            float newAlpha = Mathf.Lerp(startedAlpha, endAlpha, timePassed / duration);
+            canvasToFade.alpha = newAlpha;
+            yield return null;
+        }
+
+        if (myDelegate != null)
+            myDelegate.Invoke();
+    }
+
+    private IEnumerator FadeElementCoroutine(float duration, TMP_Text textToFade, float startAlpha, float endAlpha, Action myDelegate)
+    {
+        float timePassed = 0;
+        float startedAlpha = startAlpha;
+
+        while (timePassed < duration)
+        {
+            timePassed += Time.deltaTime;
+            float newAlpha = Mathf.Lerp(startedAlpha, endAlpha, timePassed / duration);
+            textToFade.alpha = newAlpha;
             yield return null;
         }
 

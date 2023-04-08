@@ -4,6 +4,7 @@ using NaughtyAttributes;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Histhack.Core;
+using UnityEditor.Build;
 
 public class LoadingScreen : MonoBehaviour
 {
@@ -12,22 +13,27 @@ public class LoadingScreen : MonoBehaviour
 
 
     [SerializeField, BoxGroup("Button Values")]
-    private Button startGameButton;
-
-    [SerializeField, BoxGroup("Button Values")]
     private CanvasGroup buttonCanvasGroup;
 
-    [SerializeField, BoxGroup("Progress Bar")]
-    private Image progressBar;
 
-    [SerializeField, BoxGroup("Progress Bar")]
-    private CanvasGroup LoadingBarCanvasGroup;
+    [SerializeField, BoxGroup("Loading Elements")]
+    private CanvasGroup AnimationLogo;
+
+    [SerializeField, BoxGroup("Loading Elements")]
+    private SimpleHalfFadingEffect textFadingEffect;
+
 
     [SerializeField, BoxGroup("Animation Values")]
     private float animationTime;
 
+    [SerializeField, BoxGroup("Animation Values")]
+    private float startDelay;
+
 
     private AsyncOperation operation;
+
+    private bool readyToChangeScene = false;
+
 
     #region Initialization
 
@@ -39,14 +45,19 @@ public class LoadingScreen : MonoBehaviour
 
     private void SetupLoadingScreen()
     {
-        startGameButton.interactable = false;
-
         buttonCanvasGroup.alpha = 0;
-
-        progressBar.fillAmount = 0;
     }
 
     #endregion Initialization
+
+    private void Update()
+    {
+        if (readyToChangeScene == true && Input.anyKeyDown)
+        {
+            StartMainGame();
+        }
+    }
+
 
     #region Loading
 
@@ -57,25 +68,30 @@ public class LoadingScreen : MonoBehaviour
         operation.allowSceneActivation = false;
         while (operation.progress < 0.9f)
         {
-            progressBar.fillAmount = Mathf.Clamp01(operation.progress / 0.9f);
             yield return new WaitForSeconds(0.1f);
         }
 
-        progressBar.fillAmount = 1;
+        yield return new WaitForSeconds(startDelay);
 
-        MainGameController.Instance.AddictionalMethods.FadeElement(animationTime, LoadingBarCanvasGroup, 0f, (() => ActivateNextButton()));
+        MainGameController.Instance.AddictionalMethods.FadeElement(animationTime, AnimationLogo, 0f, (() => ActivateNextButton()));
     }
 
     private void ActivateNextButton()
     {
-        MainGameController.Instance.AddictionalMethods.FadeElement(animationTime, buttonCanvasGroup, 1f, (() => startGameButton.interactable = true));
+        MainGameController.Instance.AddictionalMethods.FadeElement(animationTime, buttonCanvasGroup, 1f, (() => ActivateTextAndChangePanel()));
     }
 
     #endregion Loading
 
     #region LoadingButtons
 
-    public void StartMainGame()
+    private void ActivateTextAndChangePanel()
+    {
+        textFadingEffect.StartAnimation();
+        readyToChangeScene = true;
+    }
+
+    private void StartMainGame()
     {
         operation.allowSceneActivation = true;
     }
