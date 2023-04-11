@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,29 +9,41 @@ public class AddictionalMethods : MonoBehaviour
 {
     #region Fading
 
-    public void FadeElement(float duration, Image imageToFade, float endAlpha , Action myDelegate = null)
+    public void FadeElement(float duration, Image imageToFade, float endAlpha, Action myDelegate = null, bool ignoreTimeScale = false, float delay = 0)
     {
-        StartCoroutine(FadeElementCoroutine(duration,imageToFade,endAlpha,myDelegate));
+        StartCoroutine(FadeElementCoroutine(duration,imageToFade,endAlpha,myDelegate, ignoreTimeScale,delay));
     }
 
-    public void FadeElement(float duration, CanvasGroup canvasToFade, float endAlpha, Action myDelegate = null)
+    public void FadeElement(float duration, CanvasGroup canvasToFade, float endAlpha, Action myDelegate = null, bool ignoreTimeScale = false, float delay = 0)
     {
-        StartCoroutine(FadeElementCoroutine(duration, canvasToFade, endAlpha, myDelegate));
+        StartCoroutine(FadeElementCoroutine(duration, canvasToFade, endAlpha, myDelegate, ignoreTimeScale, delay));
     }
 
-    public void FadeElement(float duration, TMP_Text textToFade, float endAlpha, Action myDelegate = null)
+    public void FadeElement(float duration, TMP_Text textToFade, float endAlpha, Action myDelegate = null, bool ignoreTimeScale = false, float delay = 0)
     {
-        StartCoroutine(FadeElementCoroutine(duration, textToFade, endAlpha, myDelegate));
+        StartCoroutine(FadeElementCoroutine(duration, textToFade, endAlpha, myDelegate, ignoreTimeScale, delay));
     }
 
-    private IEnumerator FadeElementCoroutine(float duration, Image imageToFade, float endAlpha , Action myDelegate)
+    private IEnumerator FadeElementCoroutine(float duration, Image imageToFade, float endAlpha , Action myDelegate, bool ignoreTimeScale, float delay)
     {
+        if(ignoreTimeScale)
+        {
+            yield return new WaitForSecondsRealtime(delay);
+        }
+        else
+        {
+            yield return new WaitForSeconds(delay);
+        }
+
         float timePassed = 0;
         float startedAlpha = imageToFade.color.a;
 
         while (timePassed < duration)
         {
-            timePassed += Time.deltaTime;
+            if (!ignoreTimeScale)
+                timePassed += Time.deltaTime;
+            else
+                timePassed += Time.unscaledDeltaTime;
             float newAlpha = Mathf.Lerp(startedAlpha, endAlpha, timePassed / duration);
             imageToFade.color = new Color(imageToFade.color.r, imageToFade.color.g, imageToFade.color.b, newAlpha);
             yield return null;
@@ -40,14 +53,26 @@ public class AddictionalMethods : MonoBehaviour
             myDelegate.Invoke();
     }
 
-    private IEnumerator FadeElementCoroutine(float duration, CanvasGroup canvasToFade, float endAlpha, Action myDelegate)
+    private IEnumerator FadeElementCoroutine(float duration, CanvasGroup canvasToFade, float endAlpha, Action myDelegate, bool ignoreTimeScale, float delay)
     {
+        if (ignoreTimeScale)
+        {
+            yield return new WaitForSecondsRealtime(delay);
+        }
+        else
+        {
+            yield return new WaitForSeconds(delay);
+        }
+
         float timePassed = 0;
         float startedAlpha = canvasToFade.alpha;
 
         while (timePassed < duration)
         {
-            timePassed += Time.deltaTime;
+            if (!ignoreTimeScale)
+                timePassed += Time.deltaTime;
+            else
+                timePassed += Time.unscaledDeltaTime;
             float newAlpha = Mathf.Lerp(startedAlpha, endAlpha, timePassed / duration);
             canvasToFade.alpha = newAlpha;
             yield return null;
@@ -57,14 +82,26 @@ public class AddictionalMethods : MonoBehaviour
             myDelegate.Invoke();
     }
 
-    private IEnumerator FadeElementCoroutine(float duration, TMP_Text textToFade, float endAlpha, Action myDelegate)
+    private IEnumerator FadeElementCoroutine(float duration, TMP_Text textToFade, float endAlpha, Action myDelegate, bool ignoreTimeScale, float delay)
     {
+        if (ignoreTimeScale)
+        {
+            yield return new WaitForSecondsRealtime(delay);
+        }
+        else
+        {
+            yield return new WaitForSeconds(delay);
+        }
+
         float timePassed = 0;
         float startedAlpha = textToFade.alpha;
 
         while (timePassed < duration)
         {
-            timePassed += Time.deltaTime;
+            if (!ignoreTimeScale)
+                timePassed += Time.deltaTime;
+            else
+                timePassed += Time.unscaledDeltaTime;
             float newAlpha = Mathf.Lerp(startedAlpha, endAlpha, timePassed / duration);
             textToFade.alpha = newAlpha;
             yield return null;
@@ -144,16 +181,19 @@ public class AddictionalMethods : MonoBehaviour
 
     #region CanvasGroup
 
-    public void ActivateCanvasGroup(CanvasGroup canvasGroup)
+    public void ActivateCanvasGroup(CanvasGroup canvasGroup, bool withoutAlpha = false)
     {
-        canvasGroup.alpha = 1;
+        if(!withoutAlpha)
+            canvasGroup.alpha = 1;
+
         canvasGroup.interactable = true;
         canvasGroup.blocksRaycasts = true;
     }
 
-    public void DeactivateCanvasGroup(CanvasGroup canvasGroup)
+    public void DeactivateCanvasGroup(CanvasGroup canvasGroup, bool withoutAlpha = false)
     {
-        canvasGroup.alpha = 0;
+        if(!withoutAlpha)
+            canvasGroup.alpha = 0;
         canvasGroup.interactable = false;
         canvasGroup.blocksRaycasts = false;
     }
@@ -210,4 +250,7 @@ public class AddictionalMethods : MonoBehaviour
     }
 
     #endregion TextManagement
+
+
 }
+

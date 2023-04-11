@@ -8,9 +8,6 @@ using UnityEditor.Build;
 
 public class LoadingScreen : MonoBehaviour
 {
-    [SerializeField, Scene]
-    private string sceneToLoad;
-
 
     [SerializeField, BoxGroup("Button Values")]
     private CanvasGroup buttonCanvasGroup;
@@ -63,7 +60,7 @@ public class LoadingScreen : MonoBehaviour
 
     private IEnumerator StartLoadingGame()
     {
-        operation = SceneManager.LoadSceneAsync(sceneToLoad);
+        operation = SceneManager.LoadSceneAsync(MainGameController.Instance.NextSceneToLoad);
 
         operation.allowSceneActivation = false;
         while (operation.progress < 0.9f)
