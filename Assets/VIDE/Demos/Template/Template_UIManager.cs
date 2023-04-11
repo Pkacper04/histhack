@@ -23,7 +23,8 @@ public class Template_UIManager : MonoBehaviour
     public GameObject dialogueContainer;
     public GameObject NPC_Container;
     public GameObject playerContainer;
-
+    [SerializeField]
+    private GameObject choiceButton;
     public Text NPC_Text;
     public Text NPC_label;
     public Image NPCSprite;
@@ -56,12 +57,6 @@ public class Template_UIManager : MonoBehaviour
 
     #region MAIN
 
-    void Awake()
-    {
-
-        VD.LoadDialogues(); //Load all dialogues to memory so that we dont spend time doing so later
-        //An alternative to this can be preloading dialogues from the VIDE_Assign component!
-    }
 
     //Call this to begin the dialogue and advance through it
     public void Interact(VIDE_Assign dialogue)
@@ -136,6 +131,7 @@ public class Template_UIManager : MonoBehaviour
 
         if (VD.isActive) //If there is a dialogue active
         {
+            
             //Scroll through Player dialogue options if dialogue is not paused and we are on a player node
             //For player nodes, NodeData.commentIndex is the index of the picked choice
             if (!data.pausedAction && !animatingText && data.isPlayer && !useNavigation)
