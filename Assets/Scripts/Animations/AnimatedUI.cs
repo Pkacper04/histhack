@@ -27,7 +27,9 @@ public class AnimatedUI : MonoBehaviour
     public event Action<int> OnAnimationStart;
     public event Action<int> OnAnimationEnd;
 
-
+    public List<RectMovementAnimation> RectMovementAnimationData { get => rectMovementAnimationData; }
+    public ImageFadeAnimation ImageFadeAnimationData { get => imageFadeAnimationData; }
+    public CanvasGroupFadeAnimation CanvasGroupFadeData { get => canvasGroupFadeData; }
 
     private void CallOnAnimationStart(int index)
     {

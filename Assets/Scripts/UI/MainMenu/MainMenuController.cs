@@ -93,7 +93,8 @@ public class MainMenuController : MonoBehaviour
     {
         MainGameController.Instance.NextSceneToLoad = afterLoadingScene;
         SaveSystem.DeleteAllSaves();
-        SceneManager.LoadScene(gameSceneToLoad);
+
+        MainGameController.Instance.StartTransition(AnimationTypes.AnchoreMovement, () => SceneManager.LoadScene(gameSceneToLoad));
     }
 
     private void ShowInfoDisplayer()
@@ -128,7 +129,8 @@ public class MainMenuController : MonoBehaviour
         else
         {
             MainGameController.Instance.NextSceneToLoad = afterLoadingScene;
-            SceneManager.LoadScene(gameSceneToLoad);
+
+            MainGameController.Instance.StartTransition(AnimationTypes.AnchoreMovement, () => SceneManager.LoadScene(gameSceneToLoad));
         }
 
     }
