@@ -36,8 +36,8 @@ public class LoadingScreen : MonoBehaviour
 
     void Start()
     {
+        MainGameController.Instance.EndTransition(AnimationTypes.AnchoreMovement, () => StartCoroutine(StartLoadingGame()));
         SetupLoadingScreen();
-        StartCoroutine(StartLoadingGame());
     }
 
     private void SetupLoadingScreen()
@@ -90,7 +90,7 @@ public class LoadingScreen : MonoBehaviour
 
     private void StartMainGame()
     {
-        operation.allowSceneActivation = true;
+        MainGameController.Instance.StartTransition(AnimationTypes.AnchoreMovement, () => operation.allowSceneActivation = true);
     }
 
     #endregion LoadingButtons

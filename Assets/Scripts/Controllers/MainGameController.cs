@@ -1,7 +1,9 @@
+using DG.Tweening;
 using Histhack.Core.Effects;
 using Histhack.Core.Events;
 using Histhack.Core.SaveLoadSystem;
 using Histhack.Core.Settings;
+using NaughtyAttributes;
 using System;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -22,6 +24,12 @@ namespace Histhack.Core
 
         [SerializeField]
         private PostprocessManager postprocessManager;
+
+        [SerializeField]
+        private AnimatedUI transitionAnimation;
+
+        [SerializeField, Scene]
+        private string mainGameScene;
 
 
         #endregion SerializedVariables
@@ -93,6 +101,11 @@ namespace Histhack.Core
         private void LoadScene(Scene arg0, Scene arg1)
         {
             dataManager.LoadGame();
+
+            if(arg1.name == mainGameScene)
+            {
+                EndTransition(AnimationTypes.AnchoreMovement,null);
+            }
         }
 
         private void InitializeControllers()
@@ -108,6 +121,46 @@ namespace Histhack.Core
             settingsController.LoadSettings();
 
 
+        }
+
+        public void StartTransition(AnimationTypes animationType, TweenCallback tweenCallback)
+        {
+            if(animationType == AnimationTypes.AnchoreMovement)
+            {
+                if (tweenCallback != null)
+                    transitionAnimation.SetActionToStartAfterAnimationEnd(tweenCallback);
+
+                transitionAnimation.StartRectMovementAnimation(new Vector2(1920, 0), new Vector2(0, 0), 0);
+            }
+            else if(animationType == AnimationTypes.CanvasFade)
+            {
+                if (tweenCallback != null)
+                    transitionAnimation.SetActionToStartAfterAnimationEnd(tweenCallback);
+
+                transitionAnimation.CanvasGroupFadeData.CanvasToFade.alpha = 0;
+                transitionAnimation.RectMovementAnimationData[0].ObjectTransform.anchoredPosition = new Vector2(0, 0);
+                transitionAnimation.StartCanvasGroupFadeAnimation(0,1);
+            }
+        }
+
+        public void EndTransition(AnimationTypes animationType, TweenCallback tweenCallback)
+        {
+            if (animationType == AnimationTypes.AnchoreMovement)
+            {
+                if (tweenCallback != null)
+                    transitionAnimation.SetActionToStartAfterAnimationEnd(tweenCallback);
+
+                transitionAnimation.StartRectMovementAnimation(new Vector2(0, 0), new Vector2(-1920, 0), 1);
+            }
+            else if (animationType == AnimationTypes.CanvasFade)
+            {
+                if (tweenCallback != null)
+                    transitionAnimation.SetActionToStartAfterAnimationEnd(tweenCallback);
+
+                transitionAnimation.RectMovementAnimationData[0].ObjectTransform.anchoredPosition = new Vector2(0, 0);
+                transitionAnimation.CanvasGroupFadeData.CanvasToFade.alpha = 1;
+                transitionAnimation.StartCanvasGroupFadeAnimation(1, 0);
+            }
         }
     }
 
