@@ -7,18 +7,30 @@ using UnityEngine.UI;
 using Histhack.Core.SaveLoadSystem;
 using TMPro;
 using Histhack.Core.Settings;
+using System.Collections.Generic;
+using System.Collections;
+using DG.Tweening;
 
 public class MainMenuController : MonoBehaviour
 {
     [SerializeField, Scene]
     private string gameSceneToLoad;
 
+    [SerializeField, Scene]
+    private string afterLoadingScene;
 
-    [SerializeField, BoxGroup("Menu Animation")]
-    private Animator menuAnimator;
 
-    [SerializeField, AnimatorParam(nameof(menuAnimator)), BoxGroup("Menu Animation")]
-    private string animationParam;
+    [SerializeField, BoxGroup("MainMenuAnimations")]
+    private AnimatedUI buttonsBackgroundAnimation;
+
+    [SerializeField, BoxGroup("MainMenuAnimations")]
+    private AnimatedUI buttonsAnimation;
+
+    [SerializeField, BoxGroup("MainMenuAnimations")]
+    private AnimatedUI creditsAnimation;
+
+    [SerializeField, BoxGroup("MainMenuAnimations")]
+    private AnimatedUI SettingsAnimation;
 
 
     [SerializeField, BoxGroup("Panels")]
@@ -27,39 +39,33 @@ public class MainMenuController : MonoBehaviour
     [SerializeField, BoxGroup("Panels")]
     private CanvasGroup settingsCanvasGroup;
 
+    [SerializeField, BoxGroup("Panels")]
+    private CanvasGroup buttonsCanvasGroup;
+
 
     [SerializeField, BoxGroup("MainMenuButtons")]
     private Button continueButton;
 
+    [SerializeField]
+    private InfoDisplayerBlock infoDisplayer;
 
-    [SerializeField, BoxGroup("Setting Buttons")]
-    private Slider masterVolumeSlider;
-
-    [SerializeField, BoxGroup("Setting Buttons")]
-    private Slider musicVolumeSlider;
-
-    [SerializeField, BoxGroup("Setting Buttons")]
-    private Slider effectsVolumeSlider;
-
-    [SerializeField, BoxGroup("Setting Buttons")]
-    private TMP_Dropdown resolutionDropdown;
-
-    [SerializeField, BoxGroup("Setting Buttons")]
-    private Toggle fullscreenToggle;
+    private List<Button> mainMenuButtons = new List<Button>();
 
 
     #region Initialization
 
     private void Start()
     {
+        mainMenuButtons = new List<Button>(buttonsAnimation.GetComponentsInChildren<Button>());
+
         SetupMenu();
+        SlideMainPanelIn();
     }
 
     private void SetupMenu()
     {
         DeactivateOtherPanels();
         DeactivateButtons();
-        SetupSettings();
     }
 
     private void DeactivateOtherPanels()
@@ -73,7 +79,35 @@ public class MainMenuController : MonoBehaviour
         continueButton.gameObject.SetActive(SaveSystem.CheckIfSaveExists());
     }
 
+    private void ChangeInteractableAllMenuButtons(bool newButtonStatus)
+    {
+        foreach(Button oneButton in mainMenuButtons)
+        {
+            oneButton.interactable = newButtonStatus;
+        }
+    }
+
     #endregion Initialization
+
+    public void StartNewGame()
+    {
+        MainGameController.Instance.NextSceneToLoad = afterLoadingScene;
+        SaveSystem.DeleteAllSaves();
+        SceneManager.LoadScene(gameSceneToLoad);
+    }
+
+    private void ShowInfoDisplayer()
+    {
+        infoDisplayer.AnimatedUI.StartRectMovementAnimation(new Vector2(1920, 0), new Vector2(0, 0), 0);
+        infoDisplayer.ShowPanel();
+    }
+
+    private void HideInfoDisplayer()
+    {
+        infoDisplayer.AnimatedUI.SetActionToStartAfterAnimationEnd(() => SlideMainPanelIn());
+
+        infoDisplayer.AnimatedUI.StartRectMovementAnimation(new Vector2(0, 0), new Vector2(-1920, 0), 1);
+    }
 
 
     #region MainMenuButtons
@@ -85,33 +119,41 @@ public class MainMenuController : MonoBehaviour
 
     public void StartGame()
     {
-        SaveSystem.DeleteAllSaves();
-        SceneManager.LoadScene(gameSceneToLoad);
-    }
-
-    public void Settings()
-    {
-        if (settingsCanvasGroup.interactable)
+        if(SaveSystem.CheckIfSaveExists())
         {
-            MainGameController.Instance.AddictionalMethods.DeactivateCanvasGroup(settingsCanvasGroup);
+            infoDisplayer.InitInfoDisplayer("Are you sure you want to start a new game ?", "Yes", "No", () => StartNewGame(), () => HideInfoDisplayer());
+
+            SlideMainPanelOut(() => ShowInfoDisplayer());
         }
         else
         {
-            MainGameController.Instance.AddictionalMethods.ActivateCanvasGroup(settingsCanvasGroup);
+            MainGameController.Instance.NextSceneToLoad = afterLoadingScene;
+            SceneManager.LoadScene(gameSceneToLoad);
         }
+
+    }
+
+
+    public void Settings()
+    {
+        if (!settingsCanvasGroup.interactable)
+            SlideMainPanelOut(() => SlideSettingsIn());
+        else
+            SlideSettingsOut(() => SlideMainPanelIn());
     }
 
     public void Credits()
     {
-        if (!menuAnimator.GetBool(animationParam))
-            SlideCreditsIn();
+        if (!creditsCanvasGroup.interactable)
+            SlideMainPanelOut(() => SlideCreditsIn());
         else
-            SlideCreditsOut();
+            SlideCreditsOut(() => SlideMainPanelIn());
     }
 
     public void ExitGame()
     {
-        Application.Quit();
+        infoDisplayer.InitInfoDisplayer("Are you sure you want to leave the game ?", "Yes", "No", () => Application.Quit(), () => HideInfoDisplayer());
+        SlideMainPanelOut(() => ShowInfoDisplayer());
     }
 
 
@@ -119,92 +161,65 @@ public class MainMenuController : MonoBehaviour
 
     #region Animations
 
+    [Button("animate menu In")]
+    private void SlideMainPanelIn()
+    {
+        DeactivateOtherPanels();
+        ChangeInteractableAllMenuButtons(false);
+
+        buttonsBackgroundAnimation.SetActionToStartAfterAnimationEnd(() => buttonsAnimation.StartRectMovementAnimation(new Vector2(0f, -996f), new Vector2(0, 0), 0));
+        buttonsAnimation.SetActionToStartAfterAnimationEnd(() => ChangeInteractableAllMenuButtons(true));
+
+        buttonsBackgroundAnimation.StartRectMovementAnimation(new Vector2(0f,-1550f),new Vector2(0,0), 0);
+    }
+
+    [Button("animate menu out")]
+    private void SlideMainPanelOut(TweenCallback tweenCallback)
+    {
+        ChangeInteractableAllMenuButtons(false);
+
+        buttonsAnimation.SetActionToStartAfterAnimationEnd(() => buttonsBackgroundAnimation.StartRectMovementAnimation(new Vector2(0, 0), new Vector2(0f, 1550f), 1));
+
+        if(tweenCallback != null)
+        {
+            buttonsBackgroundAnimation.SetActionToStartAfterAnimationEnd(tweenCallback);
+        }
+
+        buttonsAnimation.StartRectMovementAnimation(new Vector2(0, 0), new Vector2(0f, 996f), 1);
+    }
+
     private void SlideCreditsIn()
     {
+        creditsAnimation.StartRectMovementAnimation(new Vector2(1920, 0), new Vector2(0, 0), 0);
         MainGameController.Instance.AddictionalMethods.ActivateCanvasGroup(creditsCanvasGroup);
-        menuAnimator.SetBool(animationParam, true);
     }
 
-    private void SlideCreditsOut()
+    private void SlideCreditsOut(TweenCallback tweenCallback)
     {
-        menuAnimator.SetBool(animationParam, false);
+        if(tweenCallback != null)
+        {
+            creditsAnimation.SetActionToStartAfterAnimationEnd(tweenCallback);
+        }
+
+        creditsAnimation.StartRectMovementAnimation(new Vector2(0, 0), new Vector2(-1920, 0), 1);
     }
 
-    private void DeactivateCredits()
+    private void SlideSettingsIn()
     {
-        MainGameController.Instance.AddictionalMethods.DeactivateCanvasGroup(creditsCanvasGroup);
+        SettingsAnimation.StartRectMovementAnimation(new Vector2(1920, 0), new Vector2(0, 0), 0);
+        MainGameController.Instance.AddictionalMethods.ActivateCanvasGroup(settingsCanvasGroup);
+    }
+
+    private void SlideSettingsOut(TweenCallback tweenCallback)
+    {
+        if(tweenCallback != null)
+        {
+            SettingsAnimation.SetActionToStartAfterAnimationEnd(tweenCallback);
+        }
+
+        SettingsAnimation.StartRectMovementAnimation(new Vector2(0,0), new Vector2(-1920,0), 1);
     }
 
     #endregion Animations
-
-    #region SettingsPublicMethods
-
-    public void SaveSettings()
-    {
-        MainGameController.Instance.SettingsController.SaveSettings();
-    }
-
-    public void VolumeChanged(Slider sliderChanged)
-    {
-        SoundTypes soundType = ChooseSoundType(sliderChanged);
-
-        MainGameController.Instance.SettingsController.ChangeVolumeOfSounds(soundType, sliderChanged.value);
-    }
-
-    public void SetNewResolution()
-    {
-        string newResolution = resolutionDropdown.options[resolutionDropdown.value].text;
-
-        MainGameController.Instance.SettingsController.ChangeGameResolution(newResolution);
-    }
-
-    public void SetFullscreen()
-    {
-        MainGameController.Instance.SettingsController.SetFullScreen(fullscreenToggle.isOn);
-    }
-
-    #endregion SettingsPublicMethods
-
-
-    #region SettingsAdditionalMethods
-
-    private void SetupSettings()
-    {
-        SettingsController settingsController = MainGameController.Instance.SettingsController;
-
-        settingsController.SetupResolutions(resolutionDropdown);
-
-        masterVolumeSlider.value = settingsController.MasterVolumeValue;
-        VolumeChanged(masterVolumeSlider);
-
-        musicVolumeSlider.value = settingsController.MusicVolumeValue;
-        VolumeChanged(musicVolumeSlider);
-
-        effectsVolumeSlider.value = settingsController.EffectsVolumeValue;
-        VolumeChanged(effectsVolumeSlider);
-
-        fullscreenToggle.isOn = settingsController.FullscreenActive;
-
-        for (int i = 0; i < resolutionDropdown.options.Count; i++)
-        {
-            if (resolutionDropdown.options[i].text == settingsController.ScreenResolution)
-            {
-                resolutionDropdown.value = i;
-                break;
-            }
-        }
-    }
-
-    private SoundTypes ChooseSoundType(Slider slider)
-    {
-        if (slider == masterVolumeSlider)
-            return SoundTypes.Master;
-        else if (slider == musicVolumeSlider)
-            return SoundTypes.Music;
-        else
-            return SoundTypes.Effects;
-    }
-
-    #endregion SettingsAdditionalMethods
 
 }

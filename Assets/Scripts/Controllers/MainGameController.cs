@@ -1,9 +1,8 @@
+using Histhack.Core.Effects;
 using Histhack.Core.Events;
 using Histhack.Core.SaveLoadSystem;
 using Histhack.Core.Settings;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
@@ -21,6 +20,10 @@ namespace Histhack.Core
         [SerializeField]
         private AudioMixer mainAudioMixer;
 
+        [SerializeField]
+        private PostprocessManager postprocessManager;
+
+
         #endregion SerializedVariables
 
         #region PrivateVariables
@@ -31,6 +34,8 @@ namespace Histhack.Core
         private DataManager dataManager;
 
         private SettingsController settingsController;
+
+        private string nextSceneToLoad;
 
         #endregion PrivateVariables
 
@@ -45,6 +50,10 @@ namespace Histhack.Core
         public DataManager DataManager { get => dataManager; }
 
         public SettingsController SettingsController { get => settingsController; }
+
+        public PostprocessManager PostprocessManager { get => postprocessManager; }
+
+        public string NextSceneToLoad { get => nextSceneToLoad; set => nextSceneToLoad = value; }
 
         #endregion PublicProperties
 
@@ -62,7 +71,13 @@ namespace Histhack.Core
                 DontDestroyOnLoad(this);
             }
 
+            InitializePostProcesses();
             InitializeControllers();
+        }
+
+        private void InitializePostProcesses()
+        {
+            postprocessManager.ChangePostProcess(PostProcessesToChange.DepthOfField, false);
         }
 
         private void OnEnable()
@@ -94,5 +109,18 @@ namespace Histhack.Core
 
 
         }
+    }
+
+    public enum AnimationTypes
+    {
+        AnchoreMovement,
+        ImageFade,
+        CanvasFade,
+    }
+
+    public enum MovementTypes
+    {
+        InMovemnt,
+        OutMovemnt,
     }
 }
