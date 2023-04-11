@@ -4,7 +4,6 @@ using NaughtyAttributes;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Histhack.Core;
-using UnityEditor.Build;
 
 public class LoadingScreen : MonoBehaviour
 {
@@ -75,7 +74,15 @@ public class LoadingScreen : MonoBehaviour
 
     private void ActivateNextButton()
     {
-        MainGameController.Instance.AddictionalMethods.FadeElement(animationTime, buttonCanvasGroup, 1f, (() => ActivateTextAndChangePanel()));
+        if (MainGameController.Instance.WaitForInputAfterLoad)
+        {
+            MainGameController.Instance.AddictionalMethods.FadeElement(animationTime, buttonCanvasGroup, 1f, (() => ActivateTextAndChangePanel()));
+        }
+        else
+        {
+            StartMainGame();
+        }
+        MainGameController.Instance.WaitForInputAfterLoad = true;
     }
 
     #endregion Loading

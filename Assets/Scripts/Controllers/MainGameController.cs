@@ -31,6 +31,9 @@ namespace Histhack.Core
         [SerializeField, Scene]
         private string mainGameScene;
 
+        [SerializeField, Scene]
+        private string mainMenuScene;
+
 
         #endregion SerializedVariables
 
@@ -44,6 +47,8 @@ namespace Histhack.Core
         private SettingsController settingsController;
 
         private string nextSceneToLoad;
+
+        private bool waitForInputAfterLoad = true;
 
         #endregion PrivateVariables
 
@@ -62,6 +67,8 @@ namespace Histhack.Core
         public PostprocessManager PostprocessManager { get => postprocessManager; }
 
         public string NextSceneToLoad { get => nextSceneToLoad; set => nextSceneToLoad = value; }
+
+        public bool WaitForInputAfterLoad { get => waitForInputAfterLoad; set => waitForInputAfterLoad = value; }
 
         #endregion PublicProperties
 
@@ -105,6 +112,10 @@ namespace Histhack.Core
             if(arg1.name == mainGameScene)
             {
                 EndTransition(AnimationTypes.AnchoreMovement,null);
+            }
+            else if(arg1.name == mainMenuScene)
+            {
+                EndTransition(AnimationTypes.AnchoreMovement, null);
             }
         }
 

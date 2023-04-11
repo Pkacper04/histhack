@@ -128,7 +128,9 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1;
         MainGameController.Instance.PostprocessManager.ChangePostProcess(Histhack.Core.Effects.PostProcessesToChange.DepthOfField, false);
         MainGameController.Instance.NextSceneToLoad = sceneAfterLoad;
-        SceneManager.LoadScene(loadingScene);
+        MainGameController.Instance.WaitForInputAfterLoad = false;
+
+        MainGameController.Instance.StartTransition(AnimationTypes.AnchoreMovement, () => SceneManager.LoadScene(loadingScene));
     }
 
     #endregion PauseMenuButtons
