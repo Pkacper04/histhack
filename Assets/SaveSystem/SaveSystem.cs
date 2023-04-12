@@ -12,6 +12,7 @@ namespace Histhack.Core.SaveLoadSystem
         private const string ending = ".xml";
 
         private static string absoluteSavingPath = Application.persistentDataPath + "/" + savingFolder;
+        private static string coreSavingPath = Application.persistentDataPath + "/";
 
         #region LoadTypes
 
@@ -34,10 +35,10 @@ namespace Histhack.Core.SaveLoadSystem
         {
             string fullSavingPath = GetAddictionalDirectory(additionalSaveDirectory) + savingPath;
 
-            if (!CheckIfFileExists(fullSavingPath))
+            if (!CheckIfFileExists(savingPath, additionalSaveDirectory))
                 return ifFileNotExistValue;
 
-            string path = CreatePath(fullSavingPath);
+            string path = CreatePath(fullSavingPath, additionalSaveDirectory);
 
             T data = JsonConvert.DeserializeObject<T>(GetRawData(path));
 
@@ -49,10 +50,12 @@ namespace Histhack.Core.SaveLoadSystem
         {
             string fullSavingPath = GetAddictionalDirectory(additionalSaveDirectory) + savingPath;
 
-            if (!CheckIfFileExists(fullSavingPath))
+            if (!CheckIfFileExists(savingPath, additionalSaveDirectory))
                 return null;
 
-            string path = CreatePath(fullSavingPath);
+            string path = CreatePath(fullSavingPath, additionalSaveDirectory);
+
+            Debug.Log("path in load class: " + path);
 
             T data = JsonConvert.DeserializeObject<T>(GetRawData(path));
 
@@ -68,7 +71,7 @@ namespace Histhack.Core.SaveLoadSystem
         {
             string fullSavingPath = GetAddictionalDirectory(additionalSaveDirectory) + savingPath;
 
-            string path = CreatePath(fullSavingPath);
+            string path = CreatePath(fullSavingPath,additionalSaveDirectory);
             CreateDirectoryForSaves(path);
 
             FileStream fs = new FileStream(path, FileMode.Create);
@@ -88,7 +91,7 @@ namespace Histhack.Core.SaveLoadSystem
         {
             string fullSavingPath = GetAddictionalDirectory(additionalSaveDirectory) + savingPath;
 
-            string path = CreatePath(fullSavingPath);
+            string path = CreatePath(fullSavingPath, additionalSaveDirectory);
             CreateDirectoryForSaves(path);
 
             FileStream fs = new FileStream(path, FileMode.Create);
@@ -108,11 +111,12 @@ namespace Histhack.Core.SaveLoadSystem
 
         #endregion SaveTypes
 
-        public static bool CheckIfFileExists(string savingPath, SaveDirectories additionalSaveDirectory = SaveDirectories.None)
+        public static bool CheckIfFileExists(string savingPath, SaveDirectories additionalSaveDirectory)
         {
             string fullSavingPath = GetAddictionalDirectory(additionalSaveDirectory) + savingPath;
 
-            string path = CreatePath(fullSavingPath);
+            string path = CreatePath(fullSavingPath,additionalSaveDirectory);
+            Debug.Log("path in check: "+path);
             return File.Exists(path);
         }
 
@@ -126,7 +130,7 @@ namespace Histhack.Core.SaveLoadSystem
 
         public static void DeleteOneSave(string savingPath)
         {
-            string path = CreatePath(savingPath);
+            string path = CreatePath(savingPath, SaveDirectories.None);
             if (Directory.Exists(path))
             {
                 Directory.Delete(path, true);
@@ -169,9 +173,15 @@ namespace Histhack.Core.SaveLoadSystem
             Directory.CreateDirectory(newPath);
         }
 
-        private static string CreatePath(string rawPath)
+        private static string CreatePath(string rawPath, SaveDirectories saveDirectiory)
         {
-            string finalPath = absoluteSavingPath + rawPath + ending;
+            string finalPath = "";
+
+            if (saveDirectiory != SaveDirectories.Core)
+                finalPath = absoluteSavingPath + rawPath + ending;
+            else
+                finalPath = coreSavingPath + rawPath + ending;
+
             return finalPath;
         }
     }
