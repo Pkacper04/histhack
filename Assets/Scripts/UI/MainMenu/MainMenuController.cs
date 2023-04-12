@@ -172,7 +172,7 @@ public class MainMenuController : MonoBehaviour
         buttonsBackgroundAnimation.SetActionToStartAfterAnimationEnd(() => buttonsAnimation.StartRectMovementAnimation(new Vector2(0f, -996f), new Vector2(0, 0), 0));
         buttonsAnimation.SetActionToStartAfterAnimationEnd(() => ChangeInteractableAllMenuButtons(true));
 
-        buttonsBackgroundAnimation.StartRectMovementAnimation(new Vector2(0f,-1550f),new Vector2(0,0), 0);
+        buttonsBackgroundAnimation.StartRectMovementAnimation(new Vector2(0f,-10f),new Vector2(0f,2250f), 0);
     }
 
     [Button("animate menu out")]
@@ -180,7 +180,7 @@ public class MainMenuController : MonoBehaviour
     {
         ChangeInteractableAllMenuButtons(false);
 
-        buttonsAnimation.SetActionToStartAfterAnimationEnd(() => buttonsBackgroundAnimation.StartRectMovementAnimation(new Vector2(0, 0), new Vector2(0f, 1550f), 1));
+        buttonsAnimation.SetActionToStartAfterAnimationEnd(() => buttonsBackgroundAnimation.StartRectMovementAnimation(new Vector2(0, 2250f), new Vector2(0f, 4500), 1));
 
         if(tweenCallback != null)
         {
