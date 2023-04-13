@@ -233,10 +233,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Press any key to continue
+  m_text: "\rNaci\u015Bnij dowolny klawisz, aby kontynuowa\u0107"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5ec5ff51a843f964d8a2d6ca2f03d044, type: 2}
+  m_sharedMaterial: {fileID: 3545189526553390559, guid: 5ec5ff51a843f964d8a2d6ca2f03d044, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -430,7 +430,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textField: {fileID: 5336459554249100490}
-  fullText: Loading
+  fullText: "\u0141adowanie"
   animatedDot: .
   numberOfDots: 3
   waitingTime: 1
@@ -454,10 +454,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Loading...
+  m_text: "\u0141adowanie..."
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5ec5ff51a843f964d8a2d6ca2f03d044, type: 2}
+  m_sharedMaterial: {fileID: 3545189526553390559, guid: 5ec5ff51a843f964d8a2d6ca2f03d044, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
