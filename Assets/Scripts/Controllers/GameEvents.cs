@@ -37,5 +37,15 @@ namespace Histhack.Core.Events
             }
         }
 
+        public event Action<SlotPuzzlePiece> OnSlotFinished;
+
+        public void CallOnSlotFinished(SlotPuzzlePiece finishedSlot)
+        {
+            if (OnSlotFinished != null)
+            {
+                OnSlotFinished(finishedSlot);
+            }
+        }
+
     }
 }
