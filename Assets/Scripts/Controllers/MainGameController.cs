@@ -26,6 +26,9 @@ namespace Histhack.Core
         private PostprocessManager postprocessManager;
 
         [SerializeField]
+        private DateController dateController;
+
+        [SerializeField]
         private AnimatedUI transitionAnimation;
 
         [SerializeField, Scene]
@@ -69,6 +72,8 @@ namespace Histhack.Core
         public string NextSceneToLoad { get => nextSceneToLoad; set => nextSceneToLoad = value; }
 
         public bool WaitForInputAfterLoad { get => waitForInputAfterLoad; set => waitForInputAfterLoad = value; }
+
+        public DateController DateController { get => dateController; }
 
         #endregion PublicProperties
 
