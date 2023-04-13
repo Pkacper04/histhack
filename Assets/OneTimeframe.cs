@@ -8,8 +8,12 @@ public class OneTimeframe : MonoBehaviour
     [SerializeField]
     private Image timeframeImage;
 
-    public void Init(Sprite newSprite)
+    private bool isCorrupted = false;
+
+    public bool IsCorrupted { get => isCorrupted; set => isCorrupted = value; }
+    public void Init(Sprite newSprite, bool isCorrupted)
     {
         timeframeImage.sprite = newSprite;
+        this.isCorrupted = isCorrupted;
     }
 }
