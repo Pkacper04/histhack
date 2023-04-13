@@ -122,7 +122,7 @@ public class MainMenuController : MonoBehaviour
     {
         if(SaveSystem.CheckIfSaveExists())
         {
-            infoDisplayer.InitInfoDisplayer("Are you sure you want to start a new game ?", "Yes", "No", () => StartNewGame(), () => HideInfoDisplayer());
+            infoDisplayer.InitInfoDisplayer("Jesteœ pewny, ¿e chcesz zacz¹æ now¹ grê ?", "Tak", "Nie", () => StartNewGame(), () => HideInfoDisplayer());
 
             SlideMainPanelOut(() => ShowInfoDisplayer());
         }
@@ -154,7 +154,7 @@ public class MainMenuController : MonoBehaviour
 
     public void ExitGame()
     {
-        infoDisplayer.InitInfoDisplayer("Are you sure you want to leave the game ?", "Yes", "No", () => Application.Quit(), () => HideInfoDisplayer());
+        infoDisplayer.InitInfoDisplayer("Jesteœ pewny, ¿e chcesz wyjœæ z gry ?", "Tak", "Nie", () => Application.Quit(), () => HideInfoDisplayer());
         SlideMainPanelOut(() => ShowInfoDisplayer());
     }
 
