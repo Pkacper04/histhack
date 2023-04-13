@@ -57,6 +57,14 @@ public class AnimatedUI : MonoBehaviour
         tween.onComplete += () => CallOnAnimationEnd(index);
     }
 
+    public void StartRectMovementAnimationX(float startPosition, float endPosition, int index = 0)
+    {
+        CallOnAnimationStart(index);
+        DG.Tweening.Core.TweenerCore<Vector2, Vector2, DG.Tweening.Plugins.Options.VectorOptions> tween = rectMovementAnimationData[index].Animate(startPosition, endPosition, actionToStartAfterEnd);
+        actionToStartAfterEnd = null;
+        tween.onComplete += () => CallOnAnimationEnd(index);
+    }
+
     public void StartImageFadeAnimation(float startAlpha, float endAlpha)
     {
         imageFadeAnimationData.Animate(startAlpha, endAlpha);
@@ -90,6 +98,14 @@ public class RectMovementAnimation
     {
         objectTransform.anchoredPosition = StartPostion;
         DG.Tweening.Core.TweenerCore<Vector2, Vector2, DG.Tweening.Plugins.Options.VectorOptions> tween = objectTransform.DOAnchorPos(endPostion, animationDuration).SetEase(animationEase).SetDelay(setAnimationDelay).OnComplete(actionOnComplete).SetUpdate(true);
+
+        return tween;
+    }
+
+    public DG.Tweening.Core.TweenerCore<Vector2, Vector2, DG.Tweening.Plugins.Options.VectorOptions> Animate(float StartPostion, float endPostion, TweenCallback actionOnComplete = null)
+    {
+        objectTransform.anchoredPosition = new Vector2(StartPostion, objectTransform.anchoredPosition.y);
+        DG.Tweening.Core.TweenerCore<Vector2, Vector2, DG.Tweening.Plugins.Options.VectorOptions> tween = objectTransform.DOAnchorPosX(endPostion, animationDuration).SetEase(animationEase).SetDelay(setAnimationDelay).OnComplete(actionOnComplete).SetUpdate(true);
 
         return tween;
     }
