@@ -451,7 +451,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea912c023fa0abc40ae67f04809d3a45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animationType: 2
+  animationType: 1
   rectMovementAnimationData:
   - objectTransform: {fileID: 3934923752420524770}
     animationDuration: 1
@@ -462,8 +462,8 @@ MonoBehaviour:
     animationEase: 13
     setAnimationDelay: 0
   imageFadeAnimationData:
-    imageToFade: {fileID: 0}
-    animationDuration: 0
+    imageToFade: {fileID: 3934923752420524769}
+    animationDuration: 1
     animationEase: 0
     setAnimationDelay: 0
   canvasGroupFadeData:

@@ -67,12 +67,14 @@ public class AnimatedUI : MonoBehaviour
 
     public void StartImageFadeAnimation(float startAlpha, float endAlpha)
     {
-        imageFadeAnimationData.Animate(startAlpha, endAlpha);
+        imageFadeAnimationData.Animate(startAlpha, endAlpha, actionToStartAfterEnd);
+        actionToStartAfterEnd = null;
     }
 
     public void StartCanvasGroupFadeAnimation(float startAlpha, float endAlpha)
     {
-        canvasGroupFadeData.Animate(startAlpha, endAlpha);
+        canvasGroupFadeData.Animate(startAlpha, endAlpha, actionToStartAfterEnd);
+        actionToStartAfterEnd = null;
     }
 }
 
@@ -128,35 +130,36 @@ public class ImageFadeAnimation
 
     public Image ImageToFade { get => imageToFade; set => imageToFade = value; }
 
-    public void Animate(float startAlpha, float endAlpha)
+    public void Animate(float startAlpha, float endAlpha, TweenCallback actionOnComplete = null)
     {
         imageToFade.color = new Color(imageToFade.color.r, imageToFade.color.g, imageToFade.color.b, startAlpha);
 
-        imageToFade.DOFade(endAlpha, animationDuration).SetEase(animationEase).SetDelay(setAnimationDelay).SetUpdate(true);
+        imageToFade.DOFade(endAlpha, animationDuration).SetEase(animationEase).SetDelay(setAnimationDelay).OnComplete(actionOnComplete).SetUpdate(true);
     }
 }
 
-[Serializable]
-public class CanvasGroupFadeAnimation
-{
-    [SerializeField]
-    private CanvasGroup canvasToFade;
-
-    [SerializeField]
-    private float animationDuration;
-
-    [SerializeField]
-    private Ease animationEase;
-
-    [SerializeField]
-    private float setAnimationDelay;
-
-    public CanvasGroup CanvasToFade { get => canvasToFade; set => canvasToFade = value; }
-
-    public void Animate(float startAlpha, float endAlpha)
+    [Serializable]
+    public class CanvasGroupFadeAnimation
     {
-        canvasToFade.alpha = startAlpha;
+        [SerializeField]
+        private CanvasGroup canvasToFade;
 
-        canvasToFade.DOFade(endAlpha, animationDuration).SetEase(animationEase).SetDelay(setAnimationDelay).SetUpdate(true);
+        [SerializeField]
+        private float animationDuration;
+
+        [SerializeField]
+        private Ease animationEase;
+
+        [SerializeField]
+        private float setAnimationDelay;
+
+        public CanvasGroup CanvasToFade { get => canvasToFade; set => canvasToFade = value; }
+
+        public void Animate(float startAlpha, float endAlpha, TweenCallback actionOnComplete = null)
+        {
+            canvasToFade.alpha = startAlpha;
+
+            canvasToFade.DOFade(endAlpha, animationDuration).SetEase(animationEase).SetDelay(setAnimationDelay).OnComplete(actionOnComplete).SetUpdate(true);
+        }
     }
-}
+
