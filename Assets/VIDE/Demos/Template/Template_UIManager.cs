@@ -27,8 +27,6 @@ public class Template_UIManager : MonoBehaviour
     private GameObject choiceButton;
     public Text NPC_Text;
     public Text NPC_label;
-    public Image NPCSprite;
-    public Image playerSprite;
     public Text playerLabel;
 
     public List<Button> maxPlayerChoices = new List<Button>();
@@ -45,7 +43,7 @@ public class Template_UIManager : MonoBehaviour
     public float choiceInterval;
     [Tooltip("Tick this if using Navigation. Will prevent mixed input.")]
     public bool useNavigation;
-
+    public bool isDialoguePlaying = true;
 
     bool dialoguePaused = false; //Custom variable to prevent the manager from calling VD.Next
     bool animatingText = false; //Will help us know when text is currently being animated
@@ -184,8 +182,6 @@ public class Template_UIManager : MonoBehaviour
         foreach (Button b in maxPlayerChoices) { b.transform.GetChild(0).GetComponent<Text>().text = ""; b.transform.GetChild(0).GetComponent<Text>().color = Color.white; }
         NPC_Container.SetActive(false);
         playerContainer.SetActive(false);
-        playerSprite.sprite = null;
-        NPCSprite.sprite = null;
 
         //Look for dynamic text change in extraData
         PostConditions(data);
@@ -193,11 +189,6 @@ public class Template_UIManager : MonoBehaviour
         //If this new Node is a Player Node, set the player choices offered by the node
         if (data.isPlayer)
         {
-            //Set node sprite if there's any, otherwise try to use default sprite
-            if (data.sprite != null)
-                playerSprite.sprite = data.sprite;
-            else if (VD.assigned.defaultPlayerSprite != null)
-                playerSprite.sprite = VD.assigned.defaultPlayerSprite;
 
             SetChoices(data.comments);
 
@@ -212,26 +203,6 @@ public class Template_UIManager : MonoBehaviour
         else  //If it's an NPC Node, let's just update NPC's text and sprite
         {
             //Set node sprite if there's any, otherwise try to use default sprite
-            if (data.sprite != null)
-            {
-                //For NPC sprite, we'll first check if there's any "sprite" key
-                //Such key is being used to apply the sprite only when at a certain comment index
-                //Check CrazyCap dialogue for reference
-                if (data.extraVars.ContainsKey("sprite"))
-                {
-                    if (data.commentIndex == (int)data.extraVars["sprite"])
-                        NPCSprite.sprite = data.sprite;
-                    else
-                        NPCSprite.sprite = VD.assigned.defaultNPCSprite; //If not there yet, set default dialogue sprite
-                }
-                else //Otherwise use the node sprites
-                {
-                    NPCSprite.sprite = data.sprite;
-                }
-            } //or use the default sprite if there isnt a node sprite at all
-            else if (VD.assigned.defaultNPCSprite != null)
-                NPCSprite.sprite = VD.assigned.defaultNPCSprite;
-
             if (NPC_animateText)
             {
                 //This coroutine animates the NPC text instead of displaying it all at once
@@ -296,6 +267,7 @@ public class Template_UIManager : MonoBehaviour
         VD.OnEnd -= EndDialogue;
         if (dialogueContainer != null)
             dialogueContainer.SetActive(false);
+        isDialoguePlaying = false;
         VD.EndDialogue();
     }
 

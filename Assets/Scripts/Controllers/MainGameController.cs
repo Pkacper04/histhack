@@ -157,6 +157,15 @@ namespace Histhack.Core
                 transitionAnimation.RectMovementAnimationData[0].ObjectTransform.anchoredPosition = new Vector2(0, 0);
                 transitionAnimation.StartCanvasGroupFadeAnimation(0,1);
             }
+            else if (animationType == AnimationTypes.ImageFade)
+            {
+                if (tweenCallback != null)
+                    transitionAnimation.SetActionToStartAfterAnimationEnd(tweenCallback);
+
+                transitionAnimation.ImageFadeAnimationData.ImageToFade.color = new Color(transitionAnimation.ImageFadeAnimationData.ImageToFade.color.r, transitionAnimation.ImageFadeAnimationData.ImageToFade.color.g, transitionAnimation.ImageFadeAnimationData.ImageToFade.color.b, 0);
+                transitionAnimation.RectMovementAnimationData[0].ObjectTransform.anchoredPosition = new Vector2(0, 0);
+                transitionAnimation.StartImageFadeAnimation(0, 1);
+            }
         }
 
         public void EndTransition(AnimationTypes animationType, TweenCallback tweenCallback)
@@ -176,6 +185,15 @@ namespace Histhack.Core
                 transitionAnimation.RectMovementAnimationData[0].ObjectTransform.anchoredPosition = new Vector2(0, 0);
                 transitionAnimation.CanvasGroupFadeData.CanvasToFade.alpha = 1;
                 transitionAnimation.StartCanvasGroupFadeAnimation(1, 0);
+            }
+            else if (animationType == AnimationTypes.ImageFade)
+            {
+                if (tweenCallback != null)
+                    transitionAnimation.SetActionToStartAfterAnimationEnd(tweenCallback);
+
+                transitionAnimation.ImageFadeAnimationData.ImageToFade.color = new Color(transitionAnimation.ImageFadeAnimationData.ImageToFade.color.r, transitionAnimation.ImageFadeAnimationData.ImageToFade.color.g, transitionAnimation.ImageFadeAnimationData.ImageToFade.color.b, 1);
+                transitionAnimation.RectMovementAnimationData[0].ObjectTransform.anchoredPosition = new Vector2(0, 0);
+                transitionAnimation.StartImageFadeAnimation(1, 0);
             }
         }
     }
