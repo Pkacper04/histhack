@@ -1,5 +1,50 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1422048732939169740
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6518308780815051661}
+  - component: {fileID: 759612128646381030}
+  m_Layer: 0
+  m_Name: DateController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6518308780815051661
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1422048732939169740}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3934923752711021739}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &759612128646381030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1422048732939169740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eab78ad2ad7101b4eb5c0dd6f97d48c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingYear: 1918
 --- !u!1 &3934923752420524771
 GameObject:
   m_ObjectHideFlags: 0
@@ -108,6 +153,7 @@ Transform:
   - {fileID: 3934923754490826820}
   - {fileID: 3934923752711137782}
   - {fileID: 3934923753677180521}
+  - {fileID: 6518308780815051661}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -126,6 +172,7 @@ MonoBehaviour:
   addictionalMethods: {fileID: 3934923754490826821}
   mainAudioMixer: {fileID: 24100000, guid: 818d6e7d041a4d44283edb82e70b71ed, type: 2}
   postprocessManager: {fileID: 3934923752711137781}
+  dateController: {fileID: 759612128646381030}
   transitionAnimation: {fileID: 3934923753677180520}
   mainGameScene: GameScene
   mainMenuScene: MainMenu

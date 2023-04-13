@@ -27,5 +27,15 @@ namespace Histhack.Core.Events
                 OnLoadGame();
         }
 
+        public event Action<int> OnDateChanged;
+
+        public void CallOnDateChanged(int newDate)
+        {
+            if(OnDateChanged != null)
+            {
+                OnDateChanged(newDate);
+            }
+        }
+
     }
 }
