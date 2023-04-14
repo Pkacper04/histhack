@@ -69,6 +69,8 @@ namespace Histhack.Core
 
         private List<int> finishedMinigames = new List<int>();
 
+        private bool loadOnStart = false;
+
         #endregion PrivateVariables
 
 
@@ -106,8 +108,17 @@ namespace Histhack.Core
 
         #endregion PublicProperties
 
+        private string savingPath = "MainGameController";
 
 
+        private void Start()
+        {
+            if(loadOnStart)
+            {
+                dataManager.LoadGame();
+                loadOnStart = false;
+            }
+        }
 
         private void Awake()
         {
@@ -129,19 +140,37 @@ namespace Histhack.Core
             postprocessManager.ChangePostProcess(PostProcessesToChange.DepthOfField, false);
         }
 
+
         private void OnEnable()
         {
             SceneManager.activeSceneChanged += LoadScene;
+            MainGameController.Instance.GameEvents.OnSaveGame += Save;
+            MainGameController.Instance.GameEvents.OnLoadGame += Load;
+        }
+
+        private void Load()
+        {
+            if(SaveSystem.CheckIfFileExists(savingPath,SaveDirectories.Player))
+            {
+                finishedMinigames = SaveSystem.Load<List<int>>(savingPath, null, SaveDirectories.Player);
+            }
+        }
+
+        private void Save()
+        {
+            SaveSystem.Save<List<int>>(finishedMinigames, savingPath, SaveDirectories.Player);
         }
 
         private void OnDisable()
         {
             SceneManager.activeSceneChanged -= LoadScene;
+            MainGameController.Instance.GameEvents.OnSaveGame -= Save;
+            MainGameController.Instance.GameEvents.OnLoadGame -= Load;
         }
 
         private void LoadScene(Scene arg0, Scene arg1)
         {
-            dataManager.LoadGame();
+            loadOnStart = true;
 
             if(arg1.name == mainGameScene)
             {

@@ -1,4 +1,5 @@
 using Histhack.Core;
+using Histhack.Core.SaveLoadSystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,6 +30,37 @@ public class SetupTimeline : MonoBehaviour
     private int currentTimeFrame = 0;
 
     private bool blockInteraction = false;
+
+    private string savePath = "TimelinePosition";
+
+    private void OnEnable()
+    {
+        MainGameController.Instance.GameEvents.OnSaveGame += Save;
+        MainGameController.Instance.GameEvents.OnLoadGame += Load;
+    }
+
+    private void OnDisable()
+    {
+        MainGameController.Instance.GameEvents.OnSaveGame -= Save;
+        MainGameController.Instance.GameEvents.OnLoadGame -= Load;
+    }
+
+    private void Save()
+    {
+        Debug.Log("save current time frame: "+ currentTimeFrame);
+        SaveSystem.Save<int>(currentTimeFrame, savePath, SaveDirectories.Player);
+    }
+
+    private void Load()
+    {
+        Debug.Log("check if file exists: "+ SaveSystem.CheckIfFileExists(savePath, SaveDirectories.Player));
+        if(SaveSystem.CheckIfFileExists(savePath, SaveDirectories.Player))
+        {
+            currentTimeFrame = SaveSystem.Load<int>(savePath, 0, SaveDirectories.Player);
+            Debug.Log("save current time frame: " + currentTimeFrame);
+        }
+    }
+
 
     private void Start()
     {
