@@ -463,7 +463,7 @@ MonoBehaviour:
   - {fileID: 1594529099}
   - {fileID: 824584590}
   screenShake: {fileID: 167637079}
-  errorCounter: {fileID: 1593703016}
+  errorCounter: {fileID: 948578681}
   maxErrors: 3
 --- !u!1 &193490632
 GameObject:
