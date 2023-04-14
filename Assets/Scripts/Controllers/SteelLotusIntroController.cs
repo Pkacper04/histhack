@@ -48,6 +48,7 @@ public class SteelLotusIntroController : MonoBehaviour
         MainGameController.Instance.NextSceneToLoad = afterLoadingScene;
         MainGameController.Instance.WaitForInputAfterLoad = false;
         MainGameController.Instance.StartTransition(AnimationTypes.AnchoreMovement, () => SceneManager.LoadScene(loadingScene));
+        SoundManager.Instance.PlayClip(SoundManager.Instance.EnviromentSource, SoundManager.Instance.EnviromentCollection.clips[0], true);
 
     }
 }

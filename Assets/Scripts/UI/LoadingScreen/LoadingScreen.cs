@@ -61,8 +61,6 @@ public class LoadingScreen : MonoBehaviour
 
     private IEnumerator StartLoadingGame()
     {
-        SoundManager.Instance.PlayClip(SoundManager.Instance.EnviromentSource, SoundManager.Instance.EnviromentCollection.clips[0], true);
-
         operation = SceneManager.LoadSceneAsync(MainGameController.Instance.NextSceneToLoad);
         operation.allowSceneActivation = false;
         while (operation.progress < 0.9f)
