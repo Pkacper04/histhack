@@ -39,9 +39,8 @@ namespace Histhack.Core.UI
 
         public void SaveSettings()
         {
-            SoundManager.Instance.PlayOneShoot(SoundManager.Instance.UISource, SoundManager.Instance.UICollection.clips[0], 0f);
             MainGameController.Instance.SettingsController.SaveSettings();
-          
+            //SoundManager.Instance.PlayOneShoot(SoundManager.Instance.UISource, SoundManager.Instance.UICollection.clips[0], 1f);
 
         }
 
@@ -61,8 +60,6 @@ namespace Histhack.Core.UI
 
         public void SetFullscreen()
         {
-            SoundManager.Instance.PlayOneShoot(SoundManager.Instance.UISource, SoundManager.Instance.UICollection.clips[1], 0f);
-
             MainGameController.Instance.SettingsController.SetFullScreen(fullscreenToggle.isOn);
         }
 
