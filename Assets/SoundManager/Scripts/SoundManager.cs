@@ -14,7 +14,7 @@ namespace Managers.Sounds
         #region Inspector Variables
 
 
-        [SerializeField, BoxGroup("Music"),  ShowIf(nameof(soundVariants), SoundVariants.Music)]
+        [SerializeField, BoxGroup("Music"), ShowIf(nameof(soundVariants), SoundVariants.Music)]
         private SoundCollection musicCollection;
 
         [SerializeField, BoxGroup("Music"), ShowIf(nameof(soundVariants), SoundVariants.Music)]
@@ -63,7 +63,7 @@ namespace Managers.Sounds
         private float changingMusicDuration = 2f;
 
 
-        [SerializeField, EnumFlags,Space(20)]
+        [SerializeField, EnumFlags, Space(20)]
         private SoundVariants soundVariants;
 
         #endregion Inspector Variables
@@ -100,12 +100,12 @@ namespace Managers.Sounds
 
         private void Awake()
         {
-            if(Instance == null)
+            if (Instance == null)
             {
                 Instance = this;
                 DontDestroyOnLoad(this);
             }
-            else if(Instance != this)
+            else if (Instance != this)
             {
                 Destroy(this.gameObject);
             }
@@ -142,7 +142,7 @@ namespace Managers.Sounds
         #region Stop Sounds
         public void StopAudio(AudioSource source, bool individual = true)
         {
-            if(individual)
+            if (individual)
                 StopAllCoroutines();
 
             if (source.isPlaying)
@@ -154,7 +154,7 @@ namespace Managers.Sounds
             StopAllCoroutines();
             if (everything)
             {
-                StopAudio(MusicSource,false);
+                StopAudio(MusicSource, false);
                 StopAudio(AmbientSource, false);
                 StopAudio(PlayerSource, false);
                 StopAudio(EnviromentSource, false);
@@ -268,14 +268,14 @@ namespace Managers.Sounds
             }
         }
 
-        private IEnumerator Fade(AudioSource source, float targetVolume,float duration, float delay = 0)
+        private IEnumerator Fade(AudioSource source, float targetVolume, float duration, float delay = 0)
         {
             yield return new WaitForSecondsRealtime(delay);
 
             float start = source.volume;
             float currentTime = 0;
 
-            while(currentTime < duration)
+            while (currentTime < duration)
             {
                 currentTime += Time.unscaledDeltaTime;
                 source.volume = Mathf.Lerp(start, targetVolume, currentTime / duration);
@@ -283,7 +283,7 @@ namespace Managers.Sounds
             }
             source.Stop();
         }
-        
+
 
         #endregion Coroutines
 
