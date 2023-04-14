@@ -24,6 +24,9 @@ public class SetupTimeline : MonoBehaviour
     [SerializeField]
     private PlayerMovement playerMovement;
 
+    [SerializeField]
+    private Image mainBackground;
+
     private List<OneTimeframe> elementsAddedOnScene = new List<OneTimeframe>();
 
     private int currentTimeFrame = 0;
@@ -33,6 +36,7 @@ public class SetupTimeline : MonoBehaviour
     private void Start()
     {
         Setup();
+        SetCurrentBackgroundImage();
     }
 
     private void Update()
@@ -58,17 +62,10 @@ public class SetupTimeline : MonoBehaviour
     {
         if (elementsAddedOnScene[currentTimeFrame].IsCorrupted)
         {
+            blockInteraction = true;
             ActivateMinigame();
         }
-        else
-        {
-            ActivateInfoScreen();
-        }
-    }
 
-    private void ActivateInfoScreen()
-    {
-        //TODO
     }
 
     private void ActivateMinigame()
@@ -126,6 +123,7 @@ public class SetupTimeline : MonoBehaviour
             playerMovement.MoveBackground(direction, () => blockInteraction = false);
 
         currentTimeFrame += direction * -1;
+        SetCurrentBackgroundImage();
     }
 
     public void Setup()
@@ -145,6 +143,18 @@ public class SetupTimeline : MonoBehaviour
         UpdateTimeline();
     }
 
+    public void SetCurrentBackgroundImage()
+    {
+        if (elementsAddedOnScene[currentTimeFrame].IsCorrupted)
+        {
+            MainGameController.Instance.AddictionalMethods.FadeElement(1f, mainBackground, 1, 0, null);
+        }
+        else
+        {
+            mainBackground.sprite = elementsToAdd[currentTimeFrame].UnlockedBackground;
+            MainGameController.Instance.AddictionalMethods.FadeElement(1f, mainBackground, 0, 1, null);
+        }
+    }
     private void UpdateTimeline()
     {
         foreach (int indexes in MainGameController.Instance.FinishedMinigames)
@@ -165,6 +175,10 @@ public class OneElementData
     [SerializeField]
     private AllMinigames minigameData;
 
+    [SerializeField]
+    private Sprite unlockedBackground;
+
     public bool IsCorrupted { get => isCorrupted; set => isCorrupted = value; }
     public AllMinigames MinigameData { get => minigameData; set => minigameData = value; }
+    public Sprite UnlockedBackground { get => unlockedBackground; set => unlockedBackground = value; }
 }

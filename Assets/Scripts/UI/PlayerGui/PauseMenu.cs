@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public class PauseMenu : MonoBehaviour
 
     [SerializeField, Scene]
     private string sceneAfterLoad;
+
+    [SerializeField, Scene]
+    private string finishScene;
 
     [SerializeField]
     private CanvasGroup pauseMenuGroup;
@@ -39,6 +43,9 @@ public class PauseMenu : MonoBehaviour
     [SerializeField]
     private CanvasGroup savingCanvasGroup;
 
+    [SerializeField]
+    private Button nextButton;
+
     private bool pauseActive = false;
 
     public bool PauseActive { get => pauseActive; }
@@ -47,8 +54,20 @@ public class PauseMenu : MonoBehaviour
     private void Start()
     {
         MainGameController.Instance.AddictionalMethods.DeactivateCanvasGroup(pauseMenuGroup);
-        StopPauseEffects();
+        StopPauseEffectsStart();
         DeactivateOtherPanels();
+    }
+    private void Awake()
+    {
+        DeactivateButtonNext();
+        Debug.Log("assign event");
+        MainGameController.Instance.GameEvents.OnGameFinish += ActivateButtonNext;
+    }
+
+    private void OnDisable()
+    {
+        Debug.Log("assign unAssign");
+        MainGameController.Instance.GameEvents.OnGameFinish -= ActivateButtonNext;
     }
 
     private void DeactivateOtherPanels()
@@ -83,6 +102,13 @@ public class PauseMenu : MonoBehaviour
         pauseActive = false;
         MainGameController.Instance.AddictionalMethods.DeactivateCanvasGroup(pauseMenuGroup);
         MainGameController.Instance.PostprocessManager.ChangePostProcess(Histhack.Core.Effects.PostProcessesToChange.DepthOfField, false);
+    }
+
+    private void StopPauseEffectsStart()
+    {
+        Time.timeScale = 1;
+        pauseActive = false;
+        MainGameController.Instance.AddictionalMethods.DeactivateCanvasGroup(pauseMenuGroup);
     }
 
     private void Update()
@@ -165,4 +191,18 @@ public class PauseMenu : MonoBehaviour
         settingsAnimatedUI.StartRectMovementAnimation(new Vector2(0, 0), new Vector2(-1920, 0), 1);
     }
 
+    public void FinishGame()
+    {
+        MainGameController.Instance.StartTransition(AnimationTypes.AnchoreMovement, () => SceneManager.LoadScene(finishScene));
+    }
+
+    public void ActivateButtonNext()
+    {
+        nextButton.interactable = true;
+    }
+
+    public void DeactivateButtonNext()
+    {
+        nextButton.interactable = false;
+    }
 }

@@ -41,6 +41,12 @@ namespace Histhack.Core
         [SerializeField, Scene]
         private string minigameScene;
 
+        [SerializeField, Scene]
+        private string endScene;
+
+        [SerializeField]
+        private DialoguesController dialogueController;
+
 
         #endregion SerializedVariables
 
@@ -68,6 +74,8 @@ namespace Histhack.Core
         private int minigameIndex = 0;
 
         private List<int> finishedMinigames = new List<int>();
+
+        private bool blockMainGame = false;
 
         #endregion PrivateVariables
 
@@ -102,6 +110,9 @@ namespace Histhack.Core
         public int MinigameIndex { get => minigameIndex; set => minigameIndex = value; }
 
         public List<int> FinishedMinigames { get => finishedMinigames; set => finishedMinigames = value; }
+
+
+        public bool BlockMainGame { get => blockMainGame; set => blockMainGame = value; }
 
 
         #endregion PublicProperties
@@ -139,15 +150,26 @@ namespace Histhack.Core
             SceneManager.activeSceneChanged -= LoadScene;
         }
 
+        private void Start()
+        {
+            dialogueController.StartDialogue();
+            dialogueController.ChangeCurrentDialogue();
+        }
+
         private void LoadScene(Scene arg0, Scene arg1)
         {
             dataManager.LoadGame();
 
             if(arg1.name == mainGameScene)
             {
+                dialogueController.Init();
                 EndTransition(AnimationTypes.AnchoreMovement,null);
             }
             else if(arg1.name == mainMenuScene)
+            {
+                EndTransition(AnimationTypes.AnchoreMovement, null);
+            }
+            else if(arg1.name == endScene)
             {
                 EndTransition(AnimationTypes.AnchoreMovement, null);
             }
@@ -165,6 +187,15 @@ namespace Histhack.Core
                     finishedMinigames.Add(minigameIndex);
                     GameEvents.CallOnMinigameFinished(minigameIndex);
                     minigameStarted = false;
+                    dialogueController.ChangeCurrentDialogue();
+
+                    Debug.Log("Current dialogue: "+ dialogueController.CurrentDialogue);
+                    Debug.Log("all dialogue: "+ dialogueController.VIDESProperty.Count);
+
+                    if(dialogueController.CurrentDialogue == dialogueController.VIDESProperty.Count)
+                    {
+                        GameEvents.CallOnGameFinish();
+                    }
                 }
             }
         }
@@ -244,7 +275,7 @@ namespace Histhack.Core
 
         public void StartMinigame()
         {
-            SceneManager.LoadScene(minigameScene);
+            dialogueController.StartDialogue();
         }
     }
 
