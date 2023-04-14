@@ -124,6 +124,7 @@ public class SetupTimeline : MonoBehaviour
 
         currentTimeFrame += direction * -1;
         SetCurrentBackgroundImage();
+        MainGameController.Instance.DateController.UpdateDate(int.Parse(elementsAddedOnScene[currentTimeFrame].Year));
     }
 
     public void Setup()
@@ -178,7 +179,12 @@ public class OneElementData
     [SerializeField]
     private Sprite unlockedBackground;
 
+    [SerializeField]
+    private string year;
+
     public bool IsCorrupted { get => isCorrupted; set => isCorrupted = value; }
     public AllMinigames MinigameData { get => minigameData; set => minigameData = value; }
     public Sprite UnlockedBackground { get => unlockedBackground; set => unlockedBackground = value; }
+
+    public string Year { get => year; set => year = value; }
 }

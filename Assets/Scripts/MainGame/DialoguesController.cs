@@ -17,11 +17,15 @@ public class DialoguesController : MonoBehaviour
     [SerializeField, Scene]
     private string minigameScene;
 
-    private int currentDialogue;
+    private int currentDialogue = 0;
+
+    private bool firstDialogueStarted = false;
+
 
     public List<VIDE_Assign> VIDESProperty { get => VIDES; }
 
-    public int CurrentDialogue { get => currentDialogue; }
+    public int CurrentDialogue { get => currentDialogue; set => currentDialogue = value; }
+    public bool FirstDialogueStarted { get => firstDialogueStarted; }
 
     public void Init()
     {
@@ -62,5 +66,6 @@ public class DialoguesController : MonoBehaviour
     public void FirstDialogue()
     {
         MainGameController.Instance.PostprocessManager.ChangePostProcess(Histhack.Core.Effects.PostProcessesToChange.DepthOfField, false);
+        firstDialogueStarted = true;
     }
 }
