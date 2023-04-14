@@ -494,10 +494,19 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 4613e6c771240be4c92552892401d3ff, type: 3}
   elementsToAdd:
   - isCorrupted: 0
+    minigameData: {fileID: 0}
   - isCorrupted: 1
+    minigameData: {fileID: 11400000, guid: a300d96e0a07b2842aaabba8f37db788, type: 2}
   - isCorrupted: 1
-  - isCorrupted: 0
-  - isCorrupted: 0
+    minigameData: {fileID: 11400000, guid: 9a0c423ab33a2604d8fbb4bdeaee7003, type: 2}
+  - isCorrupted: 1
+    minigameData: {fileID: 11400000, guid: b09c10899e0bb5d4ab7c0bc8bfaafce7, type: 2}
+  - isCorrupted: 1
+    minigameData: {fileID: 11400000, guid: 12f18bd61921a9d4ab29ce0657a584d6, type: 2}
+  - isCorrupted: 1
+    minigameData: {fileID: 11400000, guid: ebafd73eebedb364dbd5a31cf916b8a6, type: 2}
+  - isCorrupted: 1
+    minigameData: {fileID: 11400000, guid: 07b2e4049d654a4489751a8e2947fdbb, type: 2}
   parentTransform: {fileID: 5370841944274848781}
   oneTimeframe: {fileID: 8049031610173861764, guid: 916012a278321de408565bfbd709c009, type: 3}
   playerMovement: {fileID: 5480284267218019085}

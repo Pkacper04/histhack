@@ -12,16 +12,25 @@ public class SlotPuzzlePiece : MonoBehaviour
     [SerializeField]
     private RectTransform slotRectTransform;
 
+    [SerializeField]
+    private Vector2 positionOffset = Vector2.zero;
 
-    public void SelectSlot(DragPuzzlePiece puzzlePiece)
+    public int PieceId { get => pieceId; set => pieceId = value; }
+
+    public bool CheckSlot(DragPuzzlePiece puzzlePiece)
     {
-
         if (puzzlePiece.PieceID == pieceId)
         {
-            puzzlePiece.SnapPiece(slotRectTransform);
-            MainGameController.Instance.GameEvents.CallOnSlotFinished(this);
+            return true;
         }
         else
-            puzzlePiece.ResetPosition();
+        {
+            return false;
+        }
+    }
+
+    public void SetSlot(DragPuzzlePiece puzzlePiece)
+    {
+        puzzlePiece.SnapPiece(slotRectTransform, positionOffset);
     }
 }

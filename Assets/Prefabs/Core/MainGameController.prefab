@@ -176,6 +176,7 @@ MonoBehaviour:
   transitionAnimation: {fileID: 3934923753677180520}
   mainGameScene: GameScene
   mainMenuScene: MainMenu
+  minigameScene: MapMinigameTest
 --- !u!1 &3934923752711137736
 GameObject:
   m_ObjectHideFlags: 0
