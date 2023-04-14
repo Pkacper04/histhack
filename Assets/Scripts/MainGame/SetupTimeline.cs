@@ -109,7 +109,7 @@ public class SetupTimeline : MonoBehaviour
             return;
 
         blockInteraction = true;
-
+        
         Debug.Log("current time frame: "+currentTimeFrame);
         if (currentTimeFrame == 0)
             playerMovement.MovePlayer(direction, () => blockInteraction = false);
@@ -124,6 +124,7 @@ public class SetupTimeline : MonoBehaviour
 
         currentTimeFrame += direction * -1;
         SetCurrentBackgroundImage();
+        MainGameController.Instance.DateController.UpdateDate(int.Parse(elementsAddedOnScene[currentTimeFrame].Year));
     }
 
     public void Setup()
@@ -133,14 +134,15 @@ public class SetupTimeline : MonoBehaviour
             OneTimeframe newElement = Instantiate(oneTimeframe, parentTransform);
 
             if (elementsToAdd[i].IsCorrupted)
-                newElement.Init(corruptedSprite, elementsToAdd[i].IsCorrupted, elementsToAdd[i].MinigameData);
+                newElement.Init(corruptedSprite, elementsToAdd[i].IsCorrupted, elementsToAdd[i].MinigameData, elementsToAdd[i].Year);
             else
-                newElement.Init(normalSprites[Random.Range(0, normalSprites.Count)], elementsToAdd[i].IsCorrupted, elementsToAdd[i].MinigameData);
+                newElement.Init(normalSprites[Random.Range(0, normalSprites.Count)], elementsToAdd[i].IsCorrupted, elementsToAdd[i].MinigameData, elementsToAdd[i].Year);
             
             elementsAddedOnScene.Add(newElement);
         }
 
         UpdateTimeline();
+        MainGameController.Instance.DateController.UpdateDate(int.Parse(elementsAddedOnScene[currentTimeFrame].Year));
     }
 
     public void SetCurrentBackgroundImage()
@@ -171,14 +173,18 @@ public class OneElementData
     [SerializeField]
     private bool isCorrupted;
 
-
     [SerializeField]
     private AllMinigames minigameData;
 
     [SerializeField]
     private Sprite unlockedBackground;
 
+    [SerializeField]
+    private string year;
+
     public bool IsCorrupted { get => isCorrupted; set => isCorrupted = value; }
     public AllMinigames MinigameData { get => minigameData; set => minigameData = value; }
     public Sprite UnlockedBackground { get => unlockedBackground; set => unlockedBackground = value; }
+
+    public string Year { get => year; set => year = value; }
 }

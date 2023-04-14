@@ -152,7 +152,6 @@ namespace Histhack.Core
 
         private void Start()
         {
-            dialogueController.StartDialogue();
             dialogueController.ChangeCurrentDialogue();
         }
 
@@ -164,6 +163,12 @@ namespace Histhack.Core
             {
                 dialogueController.Init();
                 EndTransition(AnimationTypes.AnchoreMovement,null);
+                if (!SaveSystem.CheckIfSaveExists() && !dialogueController.FirstDialogueStarted)
+                {
+                    dialogueController.CurrentDialogue = 0;
+                    dialogueController.StartDialogue();
+                    dialogueController.ChangeCurrentDialogue();
+                }
             }
             else if(arg1.name == mainMenuScene)
             {
