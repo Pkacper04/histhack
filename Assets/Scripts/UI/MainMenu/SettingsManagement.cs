@@ -53,6 +53,7 @@ namespace Histhack.Core.UI
 
         public void SetNewResolution()
         {
+            SoundManager.Instance.PlayOneShoot(SoundManager.Instance.UISource, SoundManager.Instance.UICollection.clips[1], 0f);
             string newResolution = resolutionDropdown.options[resolutionDropdown.value].text;
 
             MainGameController.Instance.SettingsController.ChangeGameResolution(newResolution);
@@ -60,6 +61,7 @@ namespace Histhack.Core.UI
 
         public void SetFullscreen()
         {
+            SoundManager.Instance.PlayOneShoot(SoundManager.Instance.UISource, SoundManager.Instance.UICollection.clips[1], 0f);
             MainGameController.Instance.SettingsController.SetFullScreen(fullscreenToggle.isOn);
         }
 

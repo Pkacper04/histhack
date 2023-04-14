@@ -10,6 +10,7 @@ using Managers.Sounds;
 
 public class SteelLotusIntroController : MonoBehaviour
 {
+    
     [SerializeField]
     VideoPlayer player;
 
@@ -26,6 +27,7 @@ public class SteelLotusIntroController : MonoBehaviour
     {    
         StartCoroutine(WaitWithDelay());
         SoundManager.Instance.PlayOneShoot(SoundManager.Instance.EnviromentSource, SoundManager.Instance.EnviromentCollection.clips[2], 1f);
+       
     }
 
     private void Update()
@@ -49,6 +51,6 @@ public class SteelLotusIntroController : MonoBehaviour
         MainGameController.Instance.WaitForInputAfterLoad = false;
         MainGameController.Instance.StartTransition(AnimationTypes.AnchoreMovement, () => SceneManager.LoadScene(loadingScene));
         SoundManager.Instance.PlayClip(SoundManager.Instance.EnviromentSource, SoundManager.Instance.EnviromentCollection.clips[0], true);
-
+        
     }
 }
