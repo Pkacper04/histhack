@@ -10,6 +10,7 @@ using Histhack.Core.Settings;
 using System.Collections.Generic;
 using System.Collections;
 using DG.Tweening;
+using Managers.Sounds;
 
 public class MainMenuController : MonoBehaviour
 {
@@ -115,12 +116,16 @@ public class MainMenuController : MonoBehaviour
 
     public void Continue()
     {
+        SoundManager.Instance.PlayOneShoot(SoundManager.Instance.UISource, SoundManager.Instance.UICollection.clips[2], 0f);
+
         SceneManager.LoadScene(gameSceneToLoad);
     }
 
     public void StartGame()
     {
-        if(SaveSystem.CheckIfSaveExists())
+        SoundManager.Instance.PlayOneShoot(SoundManager.Instance.UISource, SoundManager.Instance.UICollection.clips[2], 0f);
+
+        if (SaveSystem.CheckIfSaveExists())
         {
             infoDisplayer.InitInfoDisplayer("Jesteœ pewny, ¿e chcesz zacz¹æ now¹ grê ?", "Tak", "Nie", () => StartNewGame(), () => HideInfoDisplayer());
 
@@ -138,6 +143,8 @@ public class MainMenuController : MonoBehaviour
 
     public void Settings()
     {
+        SoundManager.Instance.PlayOneShoot(SoundManager.Instance.UISource, SoundManager.Instance.UICollection.clips[2], 0f);
+
         if (!settingsCanvasGroup.interactable)
             SlideMainPanelOut(() => SlideSettingsIn());
         else
@@ -146,6 +153,8 @@ public class MainMenuController : MonoBehaviour
 
     public void Credits()
     {
+        SoundManager.Instance.PlayOneShoot(SoundManager.Instance.UISource, SoundManager.Instance.UICollection.clips[2], 0f);
+
         if (!creditsCanvasGroup.interactable)
             SlideMainPanelOut(() => SlideCreditsIn());
         else
@@ -154,6 +163,8 @@ public class MainMenuController : MonoBehaviour
 
     public void ExitGame()
     {
+        SoundManager.Instance.PlayOneShoot(SoundManager.Instance.UISource, SoundManager.Instance.UICollection.clips[2], 0f);
+
         infoDisplayer.InitInfoDisplayer("Jesteœ pewny, ¿e chcesz wyjœæ z gry ?", "Tak", "Nie", () => Application.Quit(), () => HideInfoDisplayer());
         SlideMainPanelOut(() => ShowInfoDisplayer());
     }
