@@ -10,10 +10,22 @@ public class OneTimeframe : MonoBehaviour
 
     private bool isCorrupted = false;
 
+    private AllMinigames minigameData;
+
     public bool IsCorrupted { get => isCorrupted; set => isCorrupted = value; }
-    public void Init(Sprite newSprite, bool isCorrupted)
+
+    public AllMinigames MinigameData { get => minigameData; set => minigameData = value; }
+
+    public void Init(Sprite newSprite, bool isCorrupted, AllMinigames minigameData)
     {
         timeframeImage.sprite = newSprite;
         this.isCorrupted = isCorrupted;
+        this.minigameData = minigameData;
+    }
+
+    public void UnlockTimeFrame(Sprite newSprite)
+    {
+        timeframeImage.sprite = newSprite;
+        this.isCorrupted = false;
     }
 }

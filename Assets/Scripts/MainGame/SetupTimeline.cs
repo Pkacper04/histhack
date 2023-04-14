@@ -1,3 +1,4 @@
+using Histhack.Core;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -47,6 +48,57 @@ public class SetupTimeline : MonoBehaviour
         {
             ChangeTimeFrame(1);
         }
+        else if (Input.GetKeyDown(KeyCode.Space))
+        {
+            ActivatePanel();
+        }
+    }
+
+    private void ActivatePanel()
+    {
+        if (elementsAddedOnScene[currentTimeFrame].IsCorrupted)
+        {
+            ActivateMinigame();
+        }
+        else
+        {
+            ActivateInfoScreen();
+        }
+    }
+
+    private void ActivateInfoScreen()
+    {
+        //TODO
+    }
+
+    private void ActivateMinigame()
+    {
+        SetMinigameData(elementsAddedOnScene[currentTimeFrame].MinigameData);
+        MainGameController.Instance.MinigameIndex = currentTimeFrame;
+        MainGameController.Instance.MinigameStarted = true;
+        MainGameController.Instance.LastMinigameSucceded = false;
+        MainGameController.Instance.StartMinigame();
+    }
+
+    private void SetMinigameData(AllMinigames minigameData)
+    {
+        MainGameController.Instance.MinigameType = minigameData.minigameType;
+
+        switch (minigameData.minigameType)
+        {
+            case MinigamesTypes.QuizMinigame:
+                MainGameController.Instance.MinigameData.Question = minigameData.quiz;
+                break;
+            case MinigamesTypes.PuzzleMinigame:
+                MainGameController.Instance.MinigameData.MapIndex = minigameData.mapIndex;
+                break;
+            case MinigamesTypes.TextToImage:
+                MainGameController.Instance.MinigameData.PicturesQuizzes = minigameData.pictures;
+                break;
+            case MinigamesTypes.TextToText:
+                MainGameController.Instance.MinigameData.Pseudonyms = minigameData.pseudonyms;
+                break;
+        }
     }
 
     private void ChangeTimeFrame(int direction)
@@ -81,12 +133,23 @@ public class SetupTimeline : MonoBehaviour
         for (int i = 0; i < elementsToAdd.Count; i++)
         {
             OneTimeframe newElement = Instantiate(oneTimeframe, parentTransform);
-            elementsAddedOnScene.Add(newElement);
 
             if (elementsToAdd[i].IsCorrupted)
-                newElement.Init(corruptedSprite, elementsToAdd[i].IsCorrupted);
+                newElement.Init(corruptedSprite, elementsToAdd[i].IsCorrupted, elementsToAdd[i].MinigameData);
             else
-                newElement.Init(normalSprites[Random.Range(0, normalSprites.Count)], elementsToAdd[i].IsCorrupted);
+                newElement.Init(normalSprites[Random.Range(0, normalSprites.Count)], elementsToAdd[i].IsCorrupted, elementsToAdd[i].MinigameData);
+            
+            elementsAddedOnScene.Add(newElement);
+        }
+
+        UpdateTimeline();
+    }
+
+    private void UpdateTimeline()
+    {
+        foreach (int indexes in MainGameController.Instance.FinishedMinigames)
+        {
+            elementsAddedOnScene[indexes].UnlockTimeFrame(normalSprites[Random.Range(0, normalSprites.Count)]);
         }
     }
 
@@ -98,5 +161,10 @@ public class OneElementData
     [SerializeField]
     private bool isCorrupted;
 
+
+    [SerializeField]
+    private AllMinigames minigameData;
+
     public bool IsCorrupted { get => isCorrupted; set => isCorrupted = value; }
+    public AllMinigames MinigameData { get => minigameData; set => minigameData = value; }
 }

@@ -1,8 +1,10 @@
+using Histhack.Core;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Xml;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -23,11 +25,15 @@ public class DragPuzzlePiece : MonoBehaviour, IBeginDragHandler, IEndDragHandler
     [SerializeField]
     private bool returnToPositionAlways = false;
 
+    [SerializeField]
+    private Vector2 overrideStartingPosition = Vector2.zero;
+
+
     private Vector2 startingPosition;
 
     private bool pieceSet = false;
 
-    public int PieceID { get => pieceID; }
+    public int PieceID { get => pieceID; set => pieceID = value; }
 
     private void Start()
     {
@@ -65,10 +71,32 @@ public class DragPuzzlePiece : MonoBehaviour, IBeginDragHandler, IEndDragHandler
                 puzzleSlots.Add(tempSlot);
         }
 
+        SlotPuzzlePiece positionFound = null;
+        SlotPuzzlePiece wrongPositionFound = null;
+
         foreach(SlotPuzzlePiece onePiece in puzzleSlots)
         {
-            onePiece.SelectSlot(this);
+            if (onePiece.CheckSlot(this))
+            {
+                positionFound = onePiece;
+            }
+            else
+            {
+                wrongPositionFound = onePiece;
+            }
         }
+
+        if(positionFound != null)
+        {
+            positionFound.SetSlot(this);
+            MainGameController.Instance.GameEvents.CallOnSlotFinished(positionFound);
+        }
+        else if(wrongPositionFound != null)
+        {
+            ResetPosition();
+            MainGameController.Instance.GameEvents.CallOnSlotWrongSelect(wrongPositionFound);
+        }
+
 
         if (pieceSet)
             return;
@@ -85,13 +113,19 @@ public class DragPuzzlePiece : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 
     public void ResetPosition()
     {
-        pieceRectTransform.anchoredPosition = startingPosition;
+        if (overrideStartingPosition != Vector2.zero)
+            pieceRectTransform.anchoredPosition = overrideStartingPosition;
+        else
+            pieceRectTransform.anchoredPosition = startingPosition;
     }
 
-    public void SnapPiece(RectTransform newParent)
+    public void SnapPiece(RectTransform newParent, Vector2 positionOffset)
     {
         pieceSet = true;
         pieceRectTransform.SetParent(newParent);
-        pieceRectTransform.anchoredPosition = new Vector2(0, 0);
+
+        Debug.Log("possition offset: "+ pieceRectTransform.anchoredPosition);
+
+        pieceRectTransform.anchoredPosition = positionOffset;
     }
 }

@@ -47,5 +47,26 @@ namespace Histhack.Core.Events
             }
         }
 
+
+
+        public event Action<SlotPuzzlePiece> OnSlotWrongSelect;
+
+        public void CallOnSlotWrongSelect(SlotPuzzlePiece wrongSlot)
+        {
+            if (OnSlotWrongSelect != null)
+            {
+                OnSlotWrongSelect(wrongSlot);
+            }
+        }
+
+        public event Action<int> OnMinigameFinished;
+        public void CallOnMinigameFinished(int minigameId)
+        {
+            if (OnMinigameFinished != null)
+            {
+                OnMinigameFinished(minigameId);
+            }
+        }
+
     }
 }

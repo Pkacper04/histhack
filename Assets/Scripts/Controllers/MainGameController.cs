@@ -5,6 +5,7 @@ using Histhack.Core.SaveLoadSystem;
 using Histhack.Core.Settings;
 using NaughtyAttributes;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
@@ -37,6 +38,9 @@ namespace Histhack.Core
         [SerializeField, Scene]
         private string mainMenuScene;
 
+        [SerializeField, Scene]
+        private string minigameScene;
+
 
         #endregion SerializedVariables
 
@@ -52,6 +56,18 @@ namespace Histhack.Core
         private string nextSceneToLoad;
 
         private bool waitForInputAfterLoad = true;
+
+        private MinigameData minigameData = new MinigameData();
+
+        private MinigamesTypes minigameType;
+
+        private bool lastMinigameSucceded;
+
+        private bool minigameStarted = false;
+
+        private int minigameIndex = 0;
+
+        private List<int> finishedMinigames = new List<int>();
 
         #endregion PrivateVariables
 
@@ -74,6 +90,19 @@ namespace Histhack.Core
         public bool WaitForInputAfterLoad { get => waitForInputAfterLoad; set => waitForInputAfterLoad = value; }
 
         public DateController DateController { get => dateController; }
+
+        public MinigameData MinigameData { get => minigameData; }
+
+        public MinigamesTypes MinigameType { get => minigameType; set => minigameType = value; }
+
+        public bool LastMinigameSucceded { get => lastMinigameSucceded; set => lastMinigameSucceded = value; }
+
+        public bool MinigameStarted { get => minigameStarted; set => minigameStarted = value; }
+
+        public int MinigameIndex { get => minigameIndex; set => minigameIndex = value; }
+
+        public List<int> FinishedMinigames { get => finishedMinigames; set => finishedMinigames = value; }
+
 
         #endregion PublicProperties
 
@@ -121,6 +150,22 @@ namespace Histhack.Core
             else if(arg1.name == mainMenuScene)
             {
                 EndTransition(AnimationTypes.AnchoreMovement, null);
+            }
+
+            Debug.Log("arg0 "+arg0.name);
+            Debug.Log("arg1 "+arg1.name);
+
+                Debug.Log("test 0");
+            if(minigameStarted && lastMinigameSucceded)
+            {
+                Debug.Log("test 1");
+                if (!finishedMinigames.Contains(minigameIndex))
+                {
+                    Debug.Log("test 2");
+                    finishedMinigames.Add(minigameIndex);
+                    GameEvents.CallOnMinigameFinished(minigameIndex);
+                    minigameStarted = false;
+                }
             }
         }
 
@@ -195,6 +240,11 @@ namespace Histhack.Core
                 transitionAnimation.RectMovementAnimationData[0].ObjectTransform.anchoredPosition = new Vector2(0, 0);
                 transitionAnimation.StartImageFadeAnimation(1, 0);
             }
+        }
+
+        public void StartMinigame()
+        {
+            SceneManager.LoadScene(minigameScene);
         }
     }
 
