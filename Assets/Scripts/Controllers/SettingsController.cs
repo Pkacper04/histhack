@@ -6,6 +6,7 @@ using UnityEngine.Audio;
 using System;
 using Newtonsoft.Json.Linq;
 using Histhack.Core.SaveLoadSystem;
+using Managers.Sounds;
 
 namespace Histhack.Core.Settings
 {
@@ -32,6 +33,7 @@ namespace Histhack.Core.Settings
 
 
         private AudioMixer mainMixer;
+        
 
         string masterExposedValue = "MasterVolume";
         string musicExposedValue = "MusicVolume";
@@ -170,7 +172,7 @@ namespace Histhack.Core.Settings
                     ChanegeVolume(masterExposedValue, newValue);
                     break;
                 case SoundTypes.Music:
-                    musicVolumeValue = newValue;
+                    
                     ChanegeVolume(musicExposedValue, newValue);
                     break;
                 case SoundTypes.Effects:
