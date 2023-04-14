@@ -1,4 +1,5 @@
 using Histhack.Core;
+using Managers.Sounds;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -35,8 +36,10 @@ public class SetupTimeline : MonoBehaviour
 
     private void Start()
     {
+        
         Setup();
         SetCurrentBackgroundImage();
+       
     }
 
     private void Update()
@@ -128,6 +131,7 @@ public class SetupTimeline : MonoBehaviour
 
     public void Setup()
     {
+        SoundManager.Instance.PlayClip(SoundManager.Instance.MusicSource, SoundManager.Instance.MusicCollection.clips[3], true);
         for (int i = 0; i < elementsToAdd.Count; i++)
         {
             OneTimeframe newElement = Instantiate(oneTimeframe, parentTransform);

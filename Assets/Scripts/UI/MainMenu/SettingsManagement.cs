@@ -1,4 +1,5 @@
 using Histhack.Core.Settings;
+using Managers.Sounds;
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
@@ -39,6 +40,8 @@ namespace Histhack.Core.UI
         public void SaveSettings()
         {
             MainGameController.Instance.SettingsController.SaveSettings();
+            //SoundManager.Instance.PlayOneShoot(SoundManager.Instance.UISource, SoundManager.Instance.UICollection.clips[0], 1f);
+
         }
 
         public void VolumeChanged(Slider sliderChanged)
@@ -50,6 +53,7 @@ namespace Histhack.Core.UI
 
         public void SetNewResolution()
         {
+            SoundManager.Instance.PlayOneShoot(SoundManager.Instance.UISource, SoundManager.Instance.UICollection.clips[1], 0f);
             string newResolution = resolutionDropdown.options[resolutionDropdown.value].text;
 
             MainGameController.Instance.SettingsController.ChangeGameResolution(newResolution);
@@ -57,6 +61,7 @@ namespace Histhack.Core.UI
 
         public void SetFullscreen()
         {
+            SoundManager.Instance.PlayOneShoot(SoundManager.Instance.UISource, SoundManager.Instance.UICollection.clips[1], 0f);
             MainGameController.Instance.SettingsController.SetFullScreen(fullscreenToggle.isOn);
         }
 
