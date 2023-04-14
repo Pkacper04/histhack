@@ -4,7 +4,6 @@ using NaughtyAttributes;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Histhack.Core;
-using Managers.Sounds;
 
 public class LoadingScreen : MonoBehaviour
 {
@@ -51,7 +50,6 @@ public class LoadingScreen : MonoBehaviour
     {
         if (readyToChangeScene == true && Input.anyKeyDown)
         {
-            SoundManager.Instance.StopAudio(SoundManager.Instance.EnviromentSource);
             StartMainGame();
         }
     }
@@ -62,6 +60,7 @@ public class LoadingScreen : MonoBehaviour
     private IEnumerator StartLoadingGame()
     {
         operation = SceneManager.LoadSceneAsync(MainGameController.Instance.NextSceneToLoad);
+
         operation.allowSceneActivation = false;
         while (operation.progress < 0.9f)
         {
@@ -69,7 +68,7 @@ public class LoadingScreen : MonoBehaviour
         }
 
         yield return new WaitForSeconds(startDelay);
-        
+
         MainGameController.Instance.AddictionalMethods.FadeElement(animationTime, AnimationLogo, 0f, (() => ActivateNextButton()));
     }
 
@@ -81,7 +80,6 @@ public class LoadingScreen : MonoBehaviour
         }
         else
         {
-            SoundManager.Instance.StopAudio(SoundManager.Instance.EnviromentSource);
             StartMainGame();
         }
         MainGameController.Instance.WaitForInputAfterLoad = true;
