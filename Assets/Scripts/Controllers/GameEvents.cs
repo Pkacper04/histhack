@@ -68,5 +68,24 @@ namespace Histhack.Core.Events
             }
         }
 
+        public event Action OnGameDailogueStart;
+        public void CallOnGameDailogueStart()
+        {
+            if (OnGameDailogueStart != null)
+            {
+                OnGameDailogueStart();
+            }
+        }
+
+        public event Action OnGameFinish;
+
+        public void CallOnGameFinish()
+        {
+            if (OnGameFinish != null)
+            {
+                OnGameFinish();
+            }
+        }
+
     }
 }
