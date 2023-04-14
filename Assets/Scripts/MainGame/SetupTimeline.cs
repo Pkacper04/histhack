@@ -110,7 +110,6 @@ public class SetupTimeline : MonoBehaviour
 
         blockInteraction = true;
         
-        Debug.Log("current time frame: "+currentTimeFrame);
         if (currentTimeFrame == 0)
             playerMovement.MovePlayer(direction, () => blockInteraction = false);
         else if (currentTimeFrame == (elementsToAdd.Count - 1))

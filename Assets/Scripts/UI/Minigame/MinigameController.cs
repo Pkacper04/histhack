@@ -64,7 +64,6 @@ public class MinigameController : MonoBehaviour
 
     public void OnMinigameFinish(bool status)
     {
-        Debug.Log("Finish minigame");
         MainGameController.Instance.LastMinigameSucceded = status;
 
         SlideInfoPanelIn(status);
@@ -73,12 +72,17 @@ public class MinigameController : MonoBehaviour
     public void SlideInfoPanelIn(bool playerWon)
     {
         if(playerWon)
-            infoDisplayer.InitInfoDisplayer("Gratulacje! Uda³o ci siê naprawiæ ten okres czasowy. Mo¿esz podró¿owaæ dalej.","Dalej",() => SceneManager.LoadScene(sceneToLoadAfter));
+            infoDisplayer.InitInfoDisplayer("Gratulacje! Uda³o ci siê naprawiæ ten okres czasowy. Mo¿esz podró¿owaæ dalej.","Dalej",() => ReturnToGame());
         else
-            infoDisplayer.InitInfoDisplayer("Niestety nie uda³o siê naprawiæ tego okresu czasowego. Chcesz spróbowaæ jeszcze raz ?", "Tak","Nie", () => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex), () => SceneManager.LoadScene(sceneToLoadAfter));
+            infoDisplayer.InitInfoDisplayer("Niestety nie uda³o siê naprawiæ tego okresu czasowego. Chcesz spróbowaæ jeszcze raz ?", "Tak","Nie", () => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex), () => ReturnToGame());
 
         infoDisplayer.AnimatedUI.StartRectMovementAnimation(new Vector2(1920, 0), new Vector2(0, 0), 0);
         infoDisplayer.ShowPanel();
+    }
+
+    private void ReturnToGame()
+    {
+        MainGameController.Instance.StartTransition(AnimationTypes.AnchoreMovement, () => SceneManager.LoadScene(sceneToLoadAfter));
     }
 }
 

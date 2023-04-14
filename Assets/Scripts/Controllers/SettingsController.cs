@@ -47,10 +47,8 @@ namespace Histhack.Core.Settings
 
         public void LoadSettings()
         {
-            Debug.Log("load settings");
             if(SaveSystem.CheckIfFileExists(savingPath, SaveDirectories.Core))
             {
-                Debug.Log("load settings 2");
                 SettingsData data = SaveSystem.LoadClass<SettingsData>(savingPath, SaveDirectories.Core);
 
                 this.masterVolumeValue = data.masterVolumeValue;

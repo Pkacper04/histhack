@@ -60,13 +60,11 @@ public class PauseMenu : MonoBehaviour
     private void Awake()
     {
         DeactivateButtonNext();
-        Debug.Log("assign event");
         MainGameController.Instance.GameEvents.OnGameFinish += ActivateButtonNext;
     }
 
     private void OnDisable()
     {
-        Debug.Log("assign unAssign");
         MainGameController.Instance.GameEvents.OnGameFinish -= ActivateButtonNext;
     }
 

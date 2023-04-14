@@ -238,7 +238,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.72854614}
+  m_AnchoredPosition: {x: 0, y: -0.7285156}
   m_SizeDelta: {x: 0, y: 16.529999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &31548519
@@ -1901,7 +1901,7 @@ MonoBehaviour:
   - {fileID: 1895442780}
   - {fileID: 1232480049}
   audioSource: {fileID: 1630843247}
-  interactionKey: 13
+  interactionKey: 32
   NPC_animateText: 1
   player_animateText: 1
   NPC_secsPerLetter: 0.02
@@ -2398,7 +2398,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.7297058}
+  m_AnchoredPosition: {x: 0, y: -0.7297363}
   m_SizeDelta: {x: 0, y: 16.5309}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2116913297

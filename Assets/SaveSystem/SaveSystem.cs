@@ -55,8 +55,6 @@ namespace Histhack.Core.SaveLoadSystem
 
             string path = CreatePath(fullSavingPath, additionalSaveDirectory);
 
-            Debug.Log("path in load class: " + path);
-
             T data = JsonConvert.DeserializeObject<T>(GetRawData(path));
 
             return data;
@@ -116,7 +114,6 @@ namespace Histhack.Core.SaveLoadSystem
             string fullSavingPath = GetAddictionalDirectory(additionalSaveDirectory) + savingPath;
 
             string path = CreatePath(fullSavingPath,additionalSaveDirectory);
-            Debug.Log("path in check: "+path);
             return File.Exists(path);
         }
 

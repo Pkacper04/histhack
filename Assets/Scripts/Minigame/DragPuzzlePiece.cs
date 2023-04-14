@@ -120,8 +120,6 @@ public class DragPuzzlePiece : MonoBehaviour, IBeginDragHandler, IEndDragHandler
         pieceSet = true;
         pieceRectTransform.SetParent(newParent);
 
-        Debug.Log("possition offset: "+ pieceRectTransform.anchoredPosition);
-
         pieceRectTransform.anchoredPosition = positionOffset;
     }
 }

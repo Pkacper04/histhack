@@ -179,23 +179,14 @@ namespace Histhack.Core
                 EndTransition(AnimationTypes.AnchoreMovement, null);
             }
 
-            Debug.Log("arg0 "+arg0.name);
-            Debug.Log("arg1 "+arg1.name);
-
-                Debug.Log("test 0");
             if(minigameStarted && lastMinigameSucceded)
             {
-                Debug.Log("test 1");
                 if (!finishedMinigames.Contains(minigameIndex))
                 {
-                    Debug.Log("test 2");
                     finishedMinigames.Add(minigameIndex);
                     GameEvents.CallOnMinigameFinished(minigameIndex);
                     minigameStarted = false;
                     dialogueController.ChangeCurrentDialogue();
-
-                    Debug.Log("Current dialogue: "+ dialogueController.CurrentDialogue);
-                    Debug.Log("all dialogue: "+ dialogueController.VIDESProperty.Count);
 
                     if(dialogueController.CurrentDialogue == dialogueController.VIDESProperty.Count)
                     {
