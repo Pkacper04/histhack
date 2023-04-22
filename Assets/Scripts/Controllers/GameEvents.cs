@@ -68,6 +68,15 @@ namespace Histhack.Core.Events
             }
         }
 
+        public event Action<int> OnMinigameFailure;
+        public void CallOnMinigameFailure(int minigameId)
+        {
+            if (OnMinigameFinished != null)
+            {
+                OnMinigameFinished(minigameId);
+            }
+        }
+
         public event Action OnGameDailogueStart;
         public void CallOnGameDailogueStart()
         {

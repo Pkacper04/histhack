@@ -54,7 +54,10 @@ public class AnimatedUI : MonoBehaviour
         CallOnAnimationStart(index);
         DG.Tweening.Core.TweenerCore<Vector2, Vector2, DG.Tweening.Plugins.Options.VectorOptions>  tween = rectMovementAnimationData[index].Animate(startPosition, endPosition, actionToStartAfterEnd);
         actionToStartAfterEnd = null;
-        tween.onComplete += () => CallOnAnimationEnd(index);
+        if (!tween.IsComplete())
+            tween.onComplete += () => CallOnAnimationEnd(index);
+        else
+            CallOnAnimationEnd(index);
     }
 
     public void StartRectMovementAnimationX(float startPosition, float endPosition, int index = 0)
@@ -62,7 +65,11 @@ public class AnimatedUI : MonoBehaviour
         CallOnAnimationStart(index);
         DG.Tweening.Core.TweenerCore<Vector2, Vector2, DG.Tweening.Plugins.Options.VectorOptions> tween = rectMovementAnimationData[index].Animate(startPosition, endPosition, actionToStartAfterEnd);
         actionToStartAfterEnd = null;
-        tween.onComplete += () => CallOnAnimationEnd(index);
+
+        if (!tween.IsComplete())
+            tween.onComplete += () => CallOnAnimationEnd(index);
+        else
+            CallOnAnimationEnd(index);
     }
 
     public void StartImageFadeAnimation(float startAlpha, float endAlpha)

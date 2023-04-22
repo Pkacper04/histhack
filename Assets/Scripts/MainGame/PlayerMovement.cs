@@ -27,9 +27,16 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float differenceOffset;
 
+    [SerializeField]
+    private PlayerState playerState;
+
     private RectTransform firstTimelineBackground;
 
     private RectTransform secondTimelineBackground;
+
+    private float movingDirection = 0;
+
+    public float MovingDirection { get => movingDirection; }
 
     private void Start()
     {
@@ -40,17 +47,32 @@ public class PlayerMovement : MonoBehaviour
 
     public void MovePlayer(int direction, TweenCallback tweenCallback)
     {
+        playerAnimation.OnAnimationEnd += playerState.ReturnToNormalState;
+        playerAnimation.OnAnimationEnd += (int _) => movingDirection = 0;
+
+        movingDirection = direction;
+
         if (tweenCallback != null)
             playerAnimation.SetActionToStartAfterAnimationEnd(tweenCallback);
 
         Vector2 newPosition = playerAnimation.RectMovementAnimationData[0].ObjectTransform.anchoredPosition + movementValue * -direction;
         playerAnimation.StartRectMovementAnimationX(playerAnimation.RectMovementAnimationData[0].ObjectTransform.anchoredPosition.x, newPosition.x);
+
+        if (direction < 0)
+            playerState.RightMovementStart();
+        else
+            playerState.LeftMovementStart();
     }
 
     public void MoveBackground(int direction, TweenCallback tweenCallback)
     {
 
-        if(tweenCallback != null)
+        timelineBackground2.OnAnimationEnd += playerState.ReturnToNormalState;
+        timelineBackground2.OnAnimationEnd += (int _) => movingDirection = 0;
+
+        movingDirection = direction;
+
+        if (tweenCallback != null)
             timelineBackground2.SetActionToStartAfterAnimationEnd(tweenCallback);
 
         CheckForTeleportation(firstTimelineBackground, direction);
@@ -65,6 +87,11 @@ public class PlayerMovement : MonoBehaviour
 
         newPosition = buttonsAnimation.RectMovementAnimationData[0].ObjectTransform.anchoredPosition + movementValue * direction;
         buttonsAnimation.StartRectMovementAnimation(buttonsAnimation.RectMovementAnimationData[0].ObjectTransform.anchoredPosition, newPosition);
+
+        if (direction < 0)
+            playerState.RightMovementStart();
+        else
+            playerState.LeftMovementStart();
     }
 
     private void CheckForTeleportation(RectTransform transformToCheck, int direction)
