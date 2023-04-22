@@ -57,57 +57,84 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Animations\SimpleAnimations\TextBumpingLetters.cs" />
-    <Compile Include="Assets\CustomAssets\VIDE\Demos\Narration\DEMO_UIManager.cs" />
+    <Compile Include="Assets\Scripts\Minigame\SlotPuzzlePiece.cs" />
+    <Compile Include="Assets\VIDE\Demos\Narration\DEMO_UIManager.cs" />
+    <Compile Include="Assets\SoundManager\Scripts\SoundManager.cs" />
+    <Compile Include="Assets\ScriptableObjects\PicturesQuiz\PicturesQuiz.cs" />
+    <Compile Include="Assets\Scripts\UI\Minigame\MapMinigame.cs" />
+    <Compile Include="Assets\Scripts\Minigame\MapController.cs" />
     <Compile Include="Assets\Scripts\Controllers\DataManager.cs" />
     <Compile Include="Assets\Scripts\Animations\SimpleAnimations\SimpleHalfFadingEffect.cs" />
-    <Compile Include="Assets\CustomAssets\VIDE\Demos\Template\Template_UIManager.cs" />
-    <Compile Include="Assets\CustomAssets\VIDE\VIDE_Assign.cs" />
+    <Compile Include="Assets\Scripts\Controllers\PostprocessManager.cs" />
+    <Compile Include="Assets\Scripts\MainGame\PlayerMovement.cs" />
+    <Compile Include="Assets\VIDE\Demos\Template\Template_UIManager.cs" />
+    <Compile Include="Assets\VIDE\VIDE_Assign.cs" />
+    <Compile Include="Assets\Scripts\Controllers\SteelLotusIntroController.cs" />
+    <Compile Include="Assets\Scripts\UI\Minigame\TextToImageMinigame.cs" />
+    <Compile Include="Assets\Scripts\Minigame\DragPuzzlePiece.cs" />
+    <Compile Include="Assets\Scripts\Controllers\DateController.cs" />
     <Compile Include="Assets\Scripts\UI\TextManagement\TextWriter.cs" />
-    <Compile Include="Assets\CustomAssets\VIDE\Demos\PlayerInteraction\demoScripts\VIDEDemoPlayer.cs" />
-    <Compile Include="Assets\CustomAssets\VIDE\Demos\MultiInstances\VIDEUIManager3.cs" />
+    <Compile Include="Assets\VIDE\Demos\PlayerInteraction\demoScripts\VIDEDemoPlayer.cs" />
+    <Compile Include="Assets\VIDE\Demos\MultiInstances\VIDEUIManager3.cs" />
     <Compile Include="Assets\Scripts\Controllers\MainGameController.cs" />
+    <Compile Include="Assets\Scripts\Animations\SimpleAnimations\SpriteSwitch.cs" />
+    <Compile Include="Assets\Scripts\MainGame\DialoguesController.cs" />
+    <Compile Include="Assets\Scripts\UI\MainMenu\SettingsManagement.cs" />
     <Compile Include="Assets\SaveSystem\SavableItem.cs" />
-    <Compile Include="Assets\CustomAssets\VIDE\Demos\PlayerInteraction\demoScripts\VIDEUIManager1.cs" />
-    <Compile Include="Assets\CustomAssets\VIDE\Demos\PlayerInteraction\demoScripts\CylinderGuy.cs" />
+    <Compile Include="Assets\Scripts\UI\Minigame\ThreeQuestionController.cs" />
+    <Compile Include="Assets\Scripts\UI\Minigame\TextToTextMinigame.cs" />
+    <Compile Include="Assets\VIDE\Demos\PlayerInteraction\demoScripts\VIDEUIManager1.cs" />
+    <Compile Include="Assets\VIDE\Demos\PlayerInteraction\demoScripts\CylinderGuy.cs" />
     <Compile Include="Assets\Scripts\Controllers\SettingsController.cs" />
+    <Compile Include="Assets\Scripts\Controllers\GameEndingDialogue.cs" />
     <Compile Include="Assets\Scripts\Controllers\GameEvents.cs" />
-    <Compile Include="Assets\CustomAssets\VIDE\Data\VIDE_Localization.cs" />
+    <Compile Include="Assets\VIDE\Data\VIDE_Localization.cs" />
+    <Compile Include="Assets\ScriptableObjects\QuizQuestion\QuizQuestion.cs" />
+    <Compile Include="Assets\Scripts\Controllers\MinigameData.cs" />
     <Compile Include="Assets\Scripts\Blit.cs" />
     <Compile Include="Assets\Scripts\UI\LoadingScreen\LoadingScreen.cs" />
     <Compile Include="Assets\Scripts\Controllers\SettingsData.cs" />
     <Compile Include="Assets\Scripts\Controllers\AddictionalMethods.cs" />
-    <Compile Include="Assets\CustomAssets\VIDE\Data\VIDE_Editor_Skin.cs" />
+    <Compile Include="Assets\SoundManager\Scripts\SoundCollection.cs" />
+    <Compile Include="Assets\VIDE\Data\VIDE_Editor_Skin.cs" />
     <Compile Include="Assets\Scripts\Controllers\Singleton.cs" />
-    <Compile Include="Assets\CustomAssets\VIDE\Demos\VeryBasic\minUIExample.cs" />
+    <Compile Include="Assets\ChangeDateUI.cs" />
+    <Compile Include="Assets\VIDE\Demos\VeryBasic\minUIExample.cs" />
     <Compile Include="Assets\SaveSystem\Encrypter.cs" />
     <Compile Include="Assets\Scripts\Controllers\PlayerEvents.cs" />
+    <Compile Include="Assets\Scripts\MainGame\SetupTimeline.cs" />
+    <Compile Include="Assets\OneTimeframe.cs" />
     <Compile Include="Assets\Scripts\UI\MainMenu\MainMenuController.cs" />
     <Compile Include="Assets\Scripts\Animations\AnimatedUI.cs" />
-    <Compile Include="Assets\CustomAssets\VIDE\Data\VIDE_Data.cs" />
-    <Compile Include="Assets\CustomAssets\VIDE\Data\MiniJSON_VIDE.cs" />
+    <Compile Include="Assets\VIDE\Data\VIDE_Data.cs" />
+    <Compile Include="Assets\ScriptableObjects\Pseudonyms\Pseudonyms.cs" />
+    <Compile Include="Assets\VIDE\Data\MiniJSON_VIDE.cs" />
     <Compile Include="Assets\Scripts\Animations\SimpleAnimations\RotateObject.cs" />
-    <Compile Include="Assets\CustomAssets\VIDE\Demos\PlayerInteraction\demoScripts\QuestChartDemo.cs" />
+    <Compile Include="Assets\Scripts\UI\Minigame\ErrorCounter.cs" />
+    <Compile Include="Assets\Scripts\Animations\SimpleAnimations\ElementSmallMovement.cs" />
+    <Compile Include="Assets\VIDE\Demos\PlayerInteraction\demoScripts\QuestChartDemo.cs" />
     <Compile Include="Assets\SaveSystem\SaveSystem.cs" />
-    <Compile Include="Assets\CustomAssets\VIDE\Data\VIDE_EditorDB.cs" />
-    <Compile Include="Assets\CustomAssets\VIDE\Demos\PlayerInteraction\demoScripts\witchExample.cs" />
-    <Compile Include="Assets\CustomAssets\VIDE\Demos\Localization\VIDEUIManager2.cs" />
-    <Compile Include="Assets\Scripts\UI\PlayerGui\PauseMenu.cs" />
-    <Compile Include="Assets\Scripts\Controllers\PostprocessManager.cs" />
-    <Compile Include="Assets\Scripts\UI\MainMenu\SettingsManagement.cs" />
+    <Compile Include="Assets\VIDE\Data\VIDE_EditorDB.cs" />
+    <Compile Include="Assets\ScriptableObjects\AllMinigames.cs" />
+    <Compile Include="Assets\Scripts\Controllers\GameIntroStartDialogue.cs" />
+    <Compile Include="Assets\VIDE\Demos\PlayerInteraction\demoScripts\witchExample.cs" />
     <Compile Include="Assets\Scripts\UI\MainMenu\InfoDisplayerBlock.cs" />
-    <Compile Include="Assets\Scripts\Animations\SimpleAnimations\SpriteSwitch.cs" />
+    <Compile Include="Assets\Scripts\UI\Minigame\MinigameController.cs" />
+    <Compile Include="Assets\VIDE\Demos\Localization\VIDEUIManager2.cs" />
+    <Compile Include="Assets\Scripts\UI\ScreenShake.cs" />
+    <Compile Include="Assets\Scripts\UI\PlayerGui\PauseMenu.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
-    <None Include="Assets\CustomAssets\VIDE\Demos\PlayerInteraction\README.txt" />
+    <None Include="Assets\VIDE\Demos\PlayerInteraction\README.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
-    <None Include="Assets\CustomAssets\VIDE\Demos\About.txt" />
+    <None Include="Assets\VIDE\Demos\About.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
-    <None Include="Assets\CustomAssets\VIDE\Export\Readme.txt" />
+    <None Include="Assets\VIDE\Export\Readme.txt" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF.shader" />
@@ -116,15 +143,15 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
-    <None Include="Assets\CustomAssets\VIDE\Demos\MultiInstances\README.txt" />
+    <None Include="Assets\VIDE\Demos\MultiInstances\README.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
-    <None Include="Assets\CustomAssets\VIDE\Demos\Localization\README.txt" />
+    <None Include="Assets\VIDE\Demos\Localization\README.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
-    <None Include="Assets\CustomAssets\VIDE\ReadMe.txt" />
+    <None Include="Assets\VIDE\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -937,11 +964,11 @@
     <Reference Include="Unity.Burst">
       <HintPath>Library\ScriptAssemblies\Unity.Burst.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.RenderPipelines.Universal.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEngine.Purchasing.SecurityCore">
       <HintPath>Library\ScriptAssemblies\UnityEngine.Purchasing.SecurityCore.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Universal.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.XR.LegacyInputHelpers">
       <HintPath>Library\ScriptAssemblies\UnityEngine.XR.LegacyInputHelpers.dll</HintPath>

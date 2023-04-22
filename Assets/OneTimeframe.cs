@@ -1,3 +1,4 @@
+using Histhack.Core;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,12 @@ public class OneTimeframe : MonoBehaviour
 {
     [SerializeField]
     private Image timeframeImage;
+
+    [SerializeField]
+    private Image corruptedImage;
+
+    [SerializeField]
+    private float unlockTimeframeDuration;
 
     private bool isCorrupted = false;
 
@@ -20,10 +27,21 @@ public class OneTimeframe : MonoBehaviour
 
     public AllMinigames MinigameData { get => minigameData; set => minigameData = value; }
 
-    public void Init(Sprite newSprite, bool isCorrupted, AllMinigames minigameData, string year)
+    public void Init(Sprite newSprite, Sprite corruptedSprite, bool isCorrupted, AllMinigames minigameData, string year)
     {
-        timeframeImage.sprite = newSprite;
+
         this.isCorrupted = isCorrupted;
+
+        if (isCorrupted)
+        {
+            this.corruptedImage.sprite = corruptedSprite;
+            this.corruptedImage.color = new Color(1, 1, 1, 1);
+        }
+        else
+        {
+            timeframeImage.sprite = newSprite;
+        }
+
         this.minigameData = minigameData;
         this.year = year;
     }
@@ -32,5 +50,6 @@ public class OneTimeframe : MonoBehaviour
     {
         timeframeImage.sprite = newSprite;
         this.isCorrupted = false;
+        MainGameController.Instance.AddictionalMethods.FadeElement(unlockTimeframeDuration, corruptedImage, 1, 0);
     }
 }

@@ -13,6 +13,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using VIDE_Data; //<--- Import to use VD class
+using TMPro;
 
 public class Template_UIManager : MonoBehaviour
 {
@@ -25,9 +26,15 @@ public class Template_UIManager : MonoBehaviour
     public GameObject playerContainer;
     [SerializeField]
     private GameObject choiceButton;
-    public Text NPC_Text;
-    public Text NPC_label;
-    public Text playerLabel;
+
+    [SerializeField]
+    private TMP_Text NPC_Text;
+
+    [SerializeField]
+    private TMP_Text NPC_label;
+
+    [SerializeField]
+    private TMP_Text playerLabel;
 
     public List<Button> maxPlayerChoices = new List<Button>();
 
@@ -414,12 +421,12 @@ public class Template_UIManager : MonoBehaviour
 
             string previousText = NPC_Text.text;
 
-            float lastHeight = NPC_Text.preferredHeight;
+/*            float lastHeight = NPC_Text.preferredHeight;
             NPC_Text.text += word;
             if (NPC_Text.preferredHeight > lastHeight)
             {
                 previousText += System.Environment.NewLine;
-            }
+            }*/
 
             for (int j = 0; j < word.Length; j++)
             {
