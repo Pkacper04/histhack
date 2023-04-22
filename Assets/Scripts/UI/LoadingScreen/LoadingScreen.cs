@@ -53,6 +53,7 @@ public class LoadingScreen : MonoBehaviour
         {
             SoundManager.Instance.StopAudio(SoundManager.Instance.EnviromentSource);
             StartMainGame();
+            readyToChangeScene = false;
         }
     }
 

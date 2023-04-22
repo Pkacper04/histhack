@@ -237,6 +237,7 @@ MonoBehaviour:
   movementValue: {x: 480, y: 0}
   teleportationValue: {x: -1920, y: 1920}
   differenceOffset: 0.01
+  playerState: {fileID: 3403434622923961899}
 --- !u!1 &3462001505507461044
 GameObject:
   m_ObjectHideFlags: 0
@@ -801,6 +802,7 @@ GameObject:
   - component: {fileID: 5329827379313410651}
   - component: {fileID: 216374030100404936}
   - component: {fileID: 2000069814}
+  - component: {fileID: 3403434622923961899}
   m_Layer: 5
   m_Name: Player
   m_TagString: Untagged
@@ -909,3 +911,30 @@ MonoBehaviour:
     animationDuration: 0
     animationEase: 0
     setAnimationDelay: 0
+--- !u!114 &3403434622923961899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7046164346632805340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a08cbb52df01b94e8a5167fe957c272, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMovement: {fileID: 5480284267218019085}
+  playerImage: {fileID: 5329827379313410651}
+  happySadDuration: 10
+  normalState:
+    forwardSprite: {fileID: 21300000, guid: de873f0159b5f3e4da7e1d065afa5024, type: 3}
+    leftSprite: {fileID: 21300000, guid: 6eef457628565624397dc0d1230d299e, type: 3}
+    rightSprite: {fileID: 21300000, guid: 08f6d090e1ab7f046a910422eb36704d, type: 3}
+  happyState:
+    forwardSprite: {fileID: 21300000, guid: 813df1c73a3969048a14e55afbbd6301, type: 3}
+    leftSprite: {fileID: 21300000, guid: 7574acb2c32a5bc4385b7efa4926a045, type: 3}
+    rightSprite: {fileID: 21300000, guid: cf45e5f865139ff47b25453e91857702, type: 3}
+  sadState:
+    forwardSprite: {fileID: 21300000, guid: 80b3eaac41ba38f459a2f8b3346fe2d9, type: 3}
+    leftSprite: {fileID: 21300000, guid: 41b029ef4b1fba24f9e5717ba5856a3a, type: 3}
+    rightSprite: {fileID: 21300000, guid: f799afe7f1500164683249ed849f6d8b, type: 3}

@@ -194,6 +194,10 @@ namespace Histhack.Core
                     }
                 }
             }
+            else if(minigameStarted && !lastMinigameSucceded)
+            {
+                GameEvents.CallOnMinigameFailure(minigameIndex);
+            }
         }
 
         private void InitializeControllers()
