@@ -6,12 +6,12 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class SetupTimeline : MonoBehaviour
-{
-    [SerializeField]
-    private Sprite corruptedSprite;
-
+{ 
     [SerializeField]
     private List<Sprite> normalSprites;
+
+    [SerializeField]
+    private List<Sprite> corruptedSprites;
 
     [SerializeField]
     private List<OneElementData> elementsToAdd = new List<OneElementData>();
@@ -137,9 +137,9 @@ public class SetupTimeline : MonoBehaviour
             OneTimeframe newElement = Instantiate(oneTimeframe, parentTransform);
 
             if (elementsToAdd[i].IsCorrupted)
-                newElement.Init(corruptedSprite, elementsToAdd[i].IsCorrupted, elementsToAdd[i].MinigameData, elementsToAdd[i].Year);
+                newElement.Init(null, corruptedSprites[Random.Range(0, corruptedSprites.Count)], elementsToAdd[i].IsCorrupted, elementsToAdd[i].MinigameData, elementsToAdd[i].Year);
             else
-                newElement.Init(normalSprites[Random.Range(0, normalSprites.Count)], elementsToAdd[i].IsCorrupted, elementsToAdd[i].MinigameData, elementsToAdd[i].Year);
+                newElement.Init(elementsToAdd[i].UnlockedBackground ,null, elementsToAdd[i].IsCorrupted, elementsToAdd[i].MinigameData, elementsToAdd[i].Year);
             
             elementsAddedOnScene.Add(newElement);
         }
@@ -164,7 +164,7 @@ public class SetupTimeline : MonoBehaviour
     {
         foreach (int indexes in MainGameController.Instance.FinishedMinigames)
         {
-            elementsAddedOnScene[indexes].UnlockTimeFrame(normalSprites[Random.Range(0, normalSprites.Count)]);
+            elementsAddedOnScene[indexes].UnlockTimeFrame(elementsToAdd[indexes].UnlockedBackground);
         }
     }
 

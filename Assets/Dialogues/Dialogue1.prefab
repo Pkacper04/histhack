@@ -59,6 +59,7 @@ MonoBehaviour:
   - Dialogue7
   - Example3Dialogue
   - Example4_dialogue
+  - GameEnding
   - GameIntro
   - Item_LookUp
   - Laura
@@ -101,25 +102,25 @@ MonoBehaviour:
     isPlayer: 0
   - commentCount: 3
     s_comment:
-    - text: "Aby porusza\u0107 si\u0119 po ta\u015Bmie, u\u017Cywaj klawiszy strza\u0142ek."
+    - text: "Aby porusza\u0107 si\u0119 po ta\u015Bmie, u\u017Cyj <b>strza\u0142ek</b>"
       extraData: ExtraData
       inputSetIndex: 1
       outputNodeIndex: -1
-      outActionIndex: -1
-      sprites: {fileID: 0}
-      audios: {fileID: 0}
-      visible: 1
-    - text: "Na ta\u015Bmie znajduj\u0105 si\u0119 wydarzenia, kt\xF3re musisz prze\u017Cy\u0107,
-        aby przenie\u015B\u0107 si\u0119 do przysz\u0142o\u015Bci."
-      extraData: ExtraData
-      inputSetIndex: 1
-      outputNodeIndex: -1
-      outActionIndex: -1
+      outActionIndex: 0
       sprites: {fileID: 0}
       audios: {fileID: 0}
       visible: 1
     - text: "Niekt\xF3re klisze s\u0105 uszkodzone. Twoim zadaniem jest je naprawi\u0107,
         aby wr\xF3ci\u0107 do swoich czas\xF3w."
+      extraData: ExtraData
+      inputSetIndex: 1
+      outputNodeIndex: -1
+      outActionIndex: -1
+      sprites: {fileID: 0}
+      audios: {fileID: 0}
+      visible: 1
+    - text: "By wej\u015B\u0107 w interakcj\u0119 z uszkodzon\u0105 ta\u015Bm\u0105
+        wci\u015Bnij <b>spacj\u0119</b>"
       extraData: ExtraData
       inputSetIndex: 1
       outputNodeIndex: -1
@@ -133,4 +134,18 @@ MonoBehaviour:
     vars: []
     varKeys: []
     isPlayer: 0
-  S_actionNodes: []
+  S_actionNodes:
+  - pauseHere: 0
+    gameObjectName: MainGameController
+    methodName: FirstDialogue
+    paramType: 0
+    gotoNode: -1
+    param_bool: 0
+    param_string: 
+    param_int: 0
+    param_float: 0
+    ID: 3
+    outPlayerIndex: -1
+    outActionIndex: -1
+    ovrStartNode: -1
+    renameDialogue: 

@@ -78,8 +78,8 @@ MonoBehaviour:
     ID: 0
     rect:
       serializedVersion: 2
-      x: 100
-      y: 250
+      x: -80
+      y: 160
       width: 348
       height: 169
     pTag: Historyk
@@ -90,7 +90,23 @@ MonoBehaviour:
     isPlayer: 0
   - commentCount: 3
     s_comment:
-    - text: "Aby porusza\u0107 si\u0119 po ta\u015Bmie, u\u017Cywaj klawiszy strza\u0142ek."
+    - text: "Aby porusza\u0107 si\u0119 po ta\u015Bmie, u\u017Cyj <b>strza\u0142ek</b>"
+      extraData: ExtraData
+      inputSetIndex: 1
+      outputNodeIndex: -1
+      outActionIndex: 0
+      showmore: 0
+      outRect:
+        serializedVersion: 2
+        x: 301
+        y: 63
+        width: 30
+        height: 33
+      sprites: {fileID: 0}
+      audios: {fileID: 0}
+      visible: 1
+    - text: "By wej\u015B\u0107 w interakcj\u0119 z uszkodzon\u0105 ta\u015Bm\u0105
+        wci\u015Bnij <b>spacj\u0119</b>"
       extraData: ExtraData
       inputSetIndex: 1
       outputNodeIndex: -1
@@ -105,23 +121,8 @@ MonoBehaviour:
       sprites: {fileID: 0}
       audios: {fileID: 0}
       visible: 1
-    - text: 
-      extraData: ExtraData
-      inputSetIndex: 1
-      outputNodeIndex: -1
-      outActionIndex: -1
-      showmore: 0
-      outRect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 0
-        height: 0
-      sprites: {fileID: 0}
-      audios: {fileID: 0}
-      visible: 1
-    - text: "Niekt\xF3re klisze s\u0105 uszkodzone. Twoim zadaniem jest je naprawi\u0107
-        \u017Ceby wr\xF3ci\u0107 do swoich czas\xF3w."
+    - text: "Niekt\xF3re klisze s\u0105 uszkodzone. Twoim zadaniem jest je naprawi\u0107,
+        aby wr\xF3ci\u0107 do swoich czas\xF3w."
       extraData: ExtraData
       inputSetIndex: 1
       outputNodeIndex: -1
@@ -139,15 +140,101 @@ MonoBehaviour:
     ID: 1
     rect:
       serializedVersion: 2
-      x: 490
-      y: 250
+      x: 310
+      y: 120
       width: 348
-      height: 212
+      height: 237
     pTag: Samouczek
     expand: 0
     sprite: {fileID: 0}
     vars: []
     varKeys: []
     isPlayer: 0
-  S_actionNodes: []
+  S_actionNodes:
+  - pauseHere: 0
+    gameObjectName: MainGameController
+    methodName: FirstDialogue
+    nameIndex: 34
+    methodIndex: 25
+    paramIndex: 0
+    opts:
+    - '[No method]'
+    - get_AddictionalMethods
+    - get_GameEvents
+    - get_PlayerEvents
+    - get_DataManager
+    - get_SettingsController
+    - get_PostprocessManager
+    - get_NextSceneToLoad
+    - set_NextSceneToLoad
+    - get_WaitForInputAfterLoad
+    - set_WaitForInputAfterLoad
+    - get_DateController
+    - get_MinigameData
+    - get_MinigameType
+    - get_LastMinigameSucceded
+    - set_LastMinigameSucceded
+    - get_MinigameStarted
+    - set_MinigameStarted
+    - get_MinigameIndex
+    - set_MinigameIndex
+    - get_FinishedMinigames
+    - StartMinigame
+    - StartDialogue
+    - ChangeCurrentDialogue
+    - LoadMinigame
+    - FirstDialogue
+    nameOpts:
+    - '[No object]'
+    - Dialogue7
+    - Dialogue6
+    - Dialogue5
+    - Dialogue4
+    - Dialogue3
+    - Dialogue2
+    - Dialogue1
+    - TMP SubMeshUI [Kingthings Trypewriter 2 SDF Material + LiberationSans SDF Atlas]
+    - TMP SubMeshUI [Kingthings Trypewriter 2 SDF Material + LiberationSans SDF Atlas]
+    - TMP SubMeshUI [Kingthings Trypewriter 2 SDF Material + LiberationSans SDF Atlas]
+    - TMP SubMeshUI [Kingthings Trypewriter 2 SDF Material + LiberationSans SDF Atlas]
+    - TMP SubMeshUI [Kingthings Trypewriter 2 SDF Material + LiberationSans SDF Atlas]
+    - TMP SubMeshUI [Kingthings Trypewriter 2 SDF Material + LiberationSans SDF Atlas]
+    - UIMANAGER
+    - MainTimeline
+    - Text (TMP)
+    - FullScreen
+    - Label
+    - ResolutionPick
+    - Resolution
+    - SoundEffects
+    - Music
+    - MasterVolume
+    - Settings
+    - Text (TMP)
+    - Text (TMP)
+    - Text (TMP)
+    - Text (TMP)
+    - TopText
+    - LoadingDisplay
+    - DateText
+    - PlayerGUI
+    - DateController
+    - MainGameController
+    - UIMANAGER
+    param_bool: 0
+    param_string: 
+    param_int: 0
+    param_float: 0
+    rect:
+      serializedVersion: 2
+      x: 700
+      y: 100
+      width: 200
+      height: 170
+    ID: 3
+    outPlayerIndex: -1
+    outActionIndex: -1
+    more: 0
+    ovrStartNode: -1
+    renameDialogue: 
   S_selNodes: []
