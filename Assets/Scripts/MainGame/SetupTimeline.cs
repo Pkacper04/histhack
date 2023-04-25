@@ -1,4 +1,5 @@
 using Histhack.Core;
+using Histhack.Core.SaveLoadSystem;
 using Managers.Sounds;
 using System.Collections;
 using System.Collections.Generic;
@@ -34,12 +35,28 @@ public class SetupTimeline : MonoBehaviour
 
     private bool blockInteraction = false;
 
+    private string savePath = "TimelineData";
+
+    private void Awake()
+    {
+        MainGameController.Instance.GameEvents.OnSaveGame += SaveTimeframe;
+        MainGameController.Instance.GameEvents.OnLoadGame += LoadTimeframe;
+        MainGameController.Instance.GameEvents.OnMinigameStart += StoreDataForMinigame;
+        MainGameController.Instance.GameEvents.OnMinigameReturn += LoadPositionAfterMinigame;
+    }
+
     private void Start()
     {
-        
         Setup();
-        SetCurrentBackgroundImage();
-       
+        SetCurrentBackgroundImage(); 
+    }
+
+    private void OnDisable()
+    {
+        MainGameController.Instance.GameEvents.OnSaveGame -= SaveTimeframe;
+        MainGameController.Instance.GameEvents.OnLoadGame -= LoadTimeframe;
+        MainGameController.Instance.GameEvents.OnMinigameStart -= StoreDataForMinigame;
+        MainGameController.Instance.GameEvents.OnMinigameReturn -= LoadPositionAfterMinigame;
     }
 
     private void Update()
@@ -166,6 +183,30 @@ public class SetupTimeline : MonoBehaviour
         {
             elementsAddedOnScene[indexes].UnlockTimeFrame(elementsToAdd[indexes].UnlockedBackground);
         }
+    }
+
+    private void SaveTimeframe()
+    {
+        SaveSystem.Save<int>(currentTimeFrame, savePath, SaveDirectories.Player);
+    }
+
+    private void LoadTimeframe()
+    {
+        if(SaveSystem.CheckIfFileExists(savePath,SaveDirectories.Player))
+        {
+            currentTimeFrame = SaveSystem.Load<int>(savePath, 0, SaveDirectories.Player);
+        }
+    }
+
+
+    private void StoreDataForMinigame()
+    {
+        MainGameController.Instance.CurrentTimeFrame = currentTimeFrame;
+    }
+
+    private void LoadPositionAfterMinigame()
+    {
+        currentTimeFrame = MainGameController.Instance.CurrentTimeFrame;
     }
 
 }

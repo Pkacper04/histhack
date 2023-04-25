@@ -5,6 +5,7 @@ using Histhack.Core.SaveLoadSystem;
 using Histhack.Core.Settings;
 using NaughtyAttributes;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -77,6 +78,14 @@ namespace Histhack.Core
 
         private bool blockMainGame = false;
 
+        private string savePath = "MinigameFinished";
+
+        private PlayerMovementData playerMovementData;
+
+        private int currentTimeFrame;
+
+        private int currentYear;
+
         #endregion PrivateVariables
 
 
@@ -114,6 +123,19 @@ namespace Histhack.Core
 
         public bool BlockMainGame { get => blockMainGame; set => blockMainGame = value; }
 
+        public PlayerMovementData PlayerMovementData {
+            get
+            {
+                return playerMovementData;
+            }
+            set
+            {
+                playerMovementData = value;
+            }
+        }
+
+
+        public int CurrentTimeFrame { get => currentTimeFrame; set => currentTimeFrame = value; }
 
         #endregion PublicProperties
 
@@ -143,11 +165,15 @@ namespace Histhack.Core
         private void OnEnable()
         {
             SceneManager.activeSceneChanged += LoadScene;
+            GameEvents.OnSaveGame += SaveMinigamesState;
+            GameEvents.OnLoadGame += LoadMinigamesState;
         }
 
         private void OnDisable()
         {
             SceneManager.activeSceneChanged -= LoadScene;
+            GameEvents.OnSaveGame -= SaveMinigamesState;
+            GameEvents.OnLoadGame -= LoadMinigamesState;
         }
 
         private void Start()
@@ -179,25 +205,47 @@ namespace Histhack.Core
                 EndTransition(AnimationTypes.AnchoreMovement, null);
             }
 
-            if(minigameStarted && lastMinigameSucceded)
+            if (arg1.name != mainGameScene && arg1.name != minigameScene)
             {
-                if (!finishedMinigames.Contains(minigameIndex))
-                {
-                    finishedMinigames.Add(minigameIndex);
-                    GameEvents.CallOnMinigameFinished(minigameIndex);
-                    minigameStarted = false;
-                    dialogueController.ChangeCurrentDialogue();
+                FinishedMinigames.Clear();
+                currentYear = 0;
+                playerMovementData = null;
+                currentTimeFrame = 0;
+                dialogueController.CurrentDialogue = 0;
+                dialogueController.FirstDialogueStarted = false;
+            }
 
-                    if(dialogueController.CurrentDialogue == dialogueController.VIDESProperty.Count)
+
+            if (arg1.name == mainGameScene)
+            {
+                if (minigameStarted && lastMinigameSucceded)
+                {
+                    if (!finishedMinigames.Contains(minigameIndex))
                     {
-                        GameEvents.CallOnGameFinish();
+                        finishedMinigames.Add(minigameIndex);
+                        GameEvents.CallOnMinigameFinished(minigameIndex);
+                        dialogueController.ChangeCurrentDialogue();
+
+                        if (dialogueController.CurrentDialogue == dialogueController.VIDESProperty.Count)
+                        {
+                            GameEvents.CallOnGameFinish();
+                        }
                     }
                 }
+                else if (minigameStarted && !lastMinigameSucceded)
+                {
+                    GameEvents.CallOnMinigameFailure(minigameIndex);
+                }
+
+                if (minigameStarted)
+                {
+                    minigameStarted = false;
+                    DateController.UpdateDate(currentYear);
+                    GameEvents.CallOnMinigameReturn();
+                    GameEvents.CallOnSaveGame();
+                }
             }
-            else if(minigameStarted && !lastMinigameSucceded)
-            {
-                GameEvents.CallOnMinigameFailure(minigameIndex);
-            }
+
         }
 
         private void InitializeControllers()
@@ -211,8 +259,6 @@ namespace Histhack.Core
             settingsController = new SettingsController();
             settingsController.Init(mainAudioMixer);
             settingsController.LoadSettings();
-
-
         }
 
         public void StartTransition(AnimationTypes animationType, TweenCallback tweenCallback)
@@ -275,8 +321,32 @@ namespace Histhack.Core
 
         public void StartMinigame()
         {
+            currentYear = DateController.CurrentYear;
+            GameEvents.CallOnMinigameStart();
             dialogueController.StartDialogue();
         }
+
+
+        public void SaveMinigamesState()
+        {
+            dialogueController.SaveCurrentDialogue();
+            SaveSystem.Save<List<int>>(finishedMinigames, savePath, SaveDirectories.Level);
+        }
+
+        public void LoadMinigamesState()
+        {
+            if (SaveSystem.CheckIfFileExists(savePath, SaveDirectories.Level))
+            {
+                dialogueController.LoadCurrentDialogue();
+                finishedMinigames = SaveSystem.Load<List<int>>(savePath, null, SaveDirectories.Level);
+
+                if (dialogueController.CurrentDialogue == dialogueController.VIDESProperty.Count)
+                {
+                    GameEvents.CallOnGameFinish();
+                }
+            }
+        }
+
     }
 
     public enum AnimationTypes

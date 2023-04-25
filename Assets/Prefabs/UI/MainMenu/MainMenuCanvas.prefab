@@ -1403,6 +1403,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameSceneToLoad: LoadingScene
   afterLoadingScene: GameScene
+  afterLoadingNewGameScene: GameIntro
   buttonsBackgroundAnimation: {fileID: 1535506838685308149}
   buttonsAnimation: {fileID: 1535506840186285489}
   creditsAnimation: {fileID: 1535506838699933335}

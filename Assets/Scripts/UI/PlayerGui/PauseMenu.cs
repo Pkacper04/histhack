@@ -61,11 +61,13 @@ public class PauseMenu : MonoBehaviour
     {
         DeactivateButtonNext();
         MainGameController.Instance.GameEvents.OnGameFinish += ActivateButtonNext;
+        MainGameController.Instance.GameEvents.OnSaveGame += Save;
     }
 
     private void OnDisable()
     {
         MainGameController.Instance.GameEvents.OnGameFinish -= ActivateButtonNext;
+        MainGameController.Instance.GameEvents.OnSaveGame -= Save;
     }
 
     private void DeactivateOtherPanels()
@@ -143,7 +145,6 @@ public class PauseMenu : MonoBehaviour
 
     public void Save()
     {
-        MainGameController.Instance.DataManager.SaveGame();
         StartCoroutine(WaitForSave());
     }
 
@@ -162,6 +163,8 @@ public class PauseMenu : MonoBehaviour
 
     private IEnumerator WaitForSave()
     {
+        yield return new WaitForSecondsRealtime(0.25f);
+
         saveAnimatedUI.StartRectMovementAnimation(new Vector2(-175f, -62.5f), new Vector2(-175f, 62.5f), 0);
         MainGameController.Instance.AddictionalMethods.ActivateCanvasGroup(savingCanvasGroup);
         savingSpriteSwitch.StartAnimation();

@@ -96,5 +96,26 @@ namespace Histhack.Core.Events
             }
         }
 
+
+        public event Action OnMinigameReturn;
+
+        public void CallOnMinigameReturn()
+        {
+            if (OnMinigameReturn != null)
+            {
+                OnMinigameReturn();
+            }
+        }
+
+        public event Action OnMinigameStart;
+
+        public void CallOnMinigameStart()
+        {
+            if (OnMinigameStart != null)
+            {
+                OnMinigameStart();
+            }
+        }
+
     }
 }

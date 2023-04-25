@@ -1,6 +1,8 @@
 using DG.Tweening;
 using Histhack.Core;
+using Histhack.Core.SaveLoadSystem;
 using NaughtyAttributes;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,11 +23,13 @@ public class DialoguesController : MonoBehaviour
 
     private bool firstDialogueStarted = false;
 
+    private string SavePath = "Dialogues";
+
 
     public List<VIDE_Assign> VIDESProperty { get => VIDES; }
 
     public int CurrentDialogue { get => currentDialogue; set => currentDialogue = value; }
-    public bool FirstDialogueStarted { get => firstDialogueStarted; }
+    public bool FirstDialogueStarted { get => firstDialogueStarted; set => firstDialogueStarted = value; }
 
     public void Init()
     {
@@ -67,5 +71,38 @@ public class DialoguesController : MonoBehaviour
     {
         MainGameController.Instance.PostprocessManager.ChangePostProcess(Histhack.Core.Effects.PostProcessesToChange.DepthOfField, false);
         firstDialogueStarted = true;
+    }
+
+    public void SaveCurrentDialogue()
+    {
+        DialoguesData data = new DialoguesData(currentDialogue, firstDialogueStarted);
+        SaveSystem.SaveClass<DialoguesData>(data, SavePath, SaveDirectories.Player);
+    }
+
+    public void LoadCurrentDialogue()
+    {
+        if (SaveSystem.CheckIfFileExists(SavePath, SaveDirectories.Player))
+        {
+            DialoguesData data = SaveSystem.LoadClass<DialoguesData>(SavePath, SaveDirectories.Player);
+
+            currentDialogue = data.currentDialogue;
+            firstDialogueStarted = data.firstDialogueStarted;
+        }
+    }
+
+}
+
+public class DialoguesData
+{
+
+    public int currentDialogue;
+    public bool firstDialogueStarted;
+
+    public DialoguesData() { }
+
+    public DialoguesData(int currentDialogue, bool firstDialogueStarted)
+    {
+        this.currentDialogue = currentDialogue;
+        this.firstDialogueStarted = firstDialogueStarted;
     }
 }

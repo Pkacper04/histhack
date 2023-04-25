@@ -216,8 +216,8 @@ MonoBehaviour:
   transitionAnimation: {fileID: 3934923753677180520}
   mainGameScene: GameScene
   mainMenuScene: MainMenu
-  minigameScene: SteelLotusIntroScene
-  endScene: SteelLotusIntroScene
+  minigameScene: MapMinigameTest
+  endScene: GameEnding
   dialogueController: {fileID: 2023132328}
 --- !u!114 &2023132328
 MonoBehaviour:
