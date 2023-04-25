@@ -20,7 +20,10 @@ public class MainMenuController : MonoBehaviour
     [SerializeField, Scene]
     private string afterLoadingScene;
 
-    
+    [SerializeField, Scene]
+    private string afterLoadingNewGameScene;
+
+
     [SerializeField, BoxGroup("MainMenuAnimations")]
     private AnimatedUI buttonsBackgroundAnimation;
 
@@ -92,7 +95,7 @@ public class MainMenuController : MonoBehaviour
 
     public void StartNewGame()
     {
-        MainGameController.Instance.NextSceneToLoad = afterLoadingScene;
+        MainGameController.Instance.NextSceneToLoad = afterLoadingNewGameScene;
         SaveSystem.DeleteAllSaves();
 
         MainGameController.Instance.StartTransition(AnimationTypes.AnchoreMovement, () => SceneManager.LoadScene(gameSceneToLoad));
@@ -116,8 +119,10 @@ public class MainMenuController : MonoBehaviour
 
     public void Continue()
     {
+        MainGameController.Instance.NextSceneToLoad = afterLoadingScene;
+
         SoundManager.Instance.PlayOneShoot(SoundManager.Instance.UISource, SoundManager.Instance.UICollection.clips[1], 0f);
-        SceneManager.LoadScene(gameSceneToLoad);
+        MainGameController.Instance.StartTransition(AnimationTypes.AnchoreMovement, () => SceneManager.LoadScene(gameSceneToLoad));
     }
 
     public void StartGame()
@@ -132,7 +137,7 @@ public class MainMenuController : MonoBehaviour
         }
         else
         {
-            MainGameController.Instance.NextSceneToLoad = afterLoadingScene;
+            MainGameController.Instance.NextSceneToLoad = afterLoadingNewGameScene;
 
             MainGameController.Instance.StartTransition(AnimationTypes.AnchoreMovement, () => SceneManager.LoadScene(gameSceneToLoad));
         }
@@ -142,8 +147,6 @@ public class MainMenuController : MonoBehaviour
 
     public void Settings()
     {
-       
-
         if (!settingsCanvasGroup.interactable)
             SlideMainPanelOut(() => SlideSettingsIn());
         else

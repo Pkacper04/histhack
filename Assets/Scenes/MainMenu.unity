@@ -542,7 +542,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1535506840039538896, guid: fecf53fea0ae4234389865c36e9d74e3, type: 3}
       propertyPath: afterLoadingScene
-      value: GameIntro
+      value: GameScene
       objectReference: {fileID: 0}
     - target: {fileID: 1535506840039538899, guid: fecf53fea0ae4234389865c36e9d74e3, type: 3}
       propertyPath: m_Camera
