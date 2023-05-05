@@ -179,6 +179,7 @@ namespace Histhack.Core
         private void Start()
         {
             dialogueController.ChangeCurrentDialogue();
+            settingsController.SetValues();
         }
 
         private void LoadScene(Scene arg0, Scene arg1)

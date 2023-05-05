@@ -199,11 +199,15 @@ public class PauseMenu : MonoBehaviour
 
     public void ActivateButtonNext()
     {
+        nextButton.gameObject.SetActive(true);
         nextButton.interactable = true;
+        MainGameController.Instance.AddictionalMethods.FadeElement(1f, nextButton.image, 0, 1);
     }
 
     public void DeactivateButtonNext()
     {
         nextButton.interactable = false;
+        nextButton.image.color = new Color(nextButton.image.color.r, nextButton.image.color.g, nextButton.image.color.b, 0);
+        nextButton.gameObject.SetActive(false);
     }
 }

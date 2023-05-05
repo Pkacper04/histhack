@@ -58,8 +58,6 @@ namespace Histhack.Core.Settings
                 this.fullscreenActive = data.fullscreenActive;
 
                 this.screenResolution = data.screenResolution;
-
-                SetValues();
             }
         }
 
@@ -83,7 +81,7 @@ namespace Histhack.Core.Settings
             SetValues();
         }
 
-        private void SetValues()
+        public void SetValues()
         {
             ChangeVolumeOfSounds(SoundTypes.Master, masterVolumeValue);
             ChangeVolumeOfSounds(SoundTypes.Music, musicVolumeValue);

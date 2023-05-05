@@ -6,5 +6,6 @@ using UnityEngine.Audio;
 public class SoundCollection : ScriptableObject
 {
     public AudioMixer mixer;
+    public string volumeValue;
     public List<AudioClip> clips = new List<AudioClip>();
 }

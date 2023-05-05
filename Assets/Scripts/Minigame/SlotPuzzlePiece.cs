@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class SlotPuzzlePiece : MonoBehaviour
 {
@@ -15,7 +16,15 @@ public class SlotPuzzlePiece : MonoBehaviour
     [SerializeField]
     private Vector2 positionOffset = Vector2.zero;
 
+    private Image backgroundImage;
+
     public int PieceId { get => pieceId; set => pieceId = value; }
+
+
+    private void Start()
+    {
+        backgroundImage = GetComponent<Image>();
+    }
 
     public bool CheckSlot(DragPuzzlePiece puzzlePiece)
     {
@@ -32,5 +41,6 @@ public class SlotPuzzlePiece : MonoBehaviour
     public void SetSlot(DragPuzzlePiece puzzlePiece)
     {
         puzzlePiece.SnapPiece(slotRectTransform, positionOffset);
+        backgroundImage.color = new Color(0, 0, 0, 0);
     }
 }

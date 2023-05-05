@@ -5,6 +5,7 @@ using NaughtyAttributes;
 using System;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 namespace Managers.Sounds
 {
@@ -194,7 +195,7 @@ namespace Managers.Sounds
 
         public void Mute(SoundCollection soundCollection)
         {
-            soundCollection.mixer.SetFloat(audioMixerVolumePath, -80);
+            soundCollection.mixer.SetFloat(soundCollection.volumeValue, -80);
         }
 
         public void UnMute(AudioMixer mixer)
@@ -204,7 +205,7 @@ namespace Managers.Sounds
 
         public void UnMute(SoundCollection soundCollection)
         {
-            soundCollection.mixer.SetFloat(audioMixerVolumePath, 0);
+            soundCollection.mixer.SetFloat(soundCollection.volumeValue, 0);
         }
 
         #endregion Muting Sounds
