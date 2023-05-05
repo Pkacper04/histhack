@@ -26,6 +26,8 @@ public class MinigameController : MonoBehaviour
     [SerializeField]
     private TextToTextMinigame textToTextMinigame;
 
+    private bool returningToGame = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -82,6 +84,10 @@ public class MinigameController : MonoBehaviour
 
     private void ReturnToGame()
     {
+        if (returningToGame)
+            return;
+
+        returningToGame = true;
         MainGameController.Instance.StartTransition(AnimationTypes.AnchoreMovement, () => SceneManager.LoadScene(sceneToLoadAfter));
     }
 }
